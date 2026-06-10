@@ -650,8 +650,20 @@ function loadSlot(k,newPin){state.slots=state.slots||{};const fresh=!state.slots
   state.part=Math.max(state.part||1,Math.min(5,ms+1));   // resume at the WORK FRONTIER — visiting Part 1 to switch students must not demote where the returning student lands (sim-caught bug)
   if(fresh&&newPin)s.pin=newPin;
   SLOTKEYS.forEach(key=>s[key]=state[key]);}
-function persist(){syncCurrentSlot();const b=JSON.stringify(state);const how=scormSet(b)?'D2L':'this browser';try{localStorage.setItem('cm3400_risklog',b);}catch(e){}
+function persist(){syncCurrentSlot();cloudSync('work');const b=JSON.stringify(state);const how=scormSet(b)?'D2L':'this browser';try{localStorage.setItem('cm3400_risklog',b);}catch(e){}
   const m=document.getElementById('savedmsg');m.textContent='✓ saved to '+how;setTimeout(()=>m.textContent='',3500);}
+// ---- live Google mirror (instructor recovery net, his 2026-06-10 ask) — fire-and-forget, never blocks a student ----
+const SYNC_URL='';   // paste the Apps Script /exec URL to turn the mirror ON; empty = fully dormant
+let _syncT=0,_syncPend=false;
+function cloudSync(ev){if(!SYNC_URL||!state.entered||!state.grp||!state.tm)return;
+  const now=Date.now();
+  if(ev!=='submit'&&ev!=='enter'&&now-_syncT<75000){_syncPend=true;return;}   // at most ~1 update / 75s of work; entry + submit always go
+  _syncT=now;_syncPend=false;
+  try{const s=Object.assign({},state);delete s._actionReports;
+    fetch(SYNC_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({tok:'cm3400-a2',ev:ev||'work',key:slotKeyOf(state.grp,state.tm),
+        cls:state.cls,sem:state.sem,yr:state.yr,grp:state.grp,tm:state.tm,part:state.part||1,state:s})}).catch(()=>{});}catch(e){}}
+setInterval(()=>{if(_syncPend)cloudSync('flush');},30000);   // a pending debounced change ships within 30s of going quiet
 function loadState(){let b=scormGet();if(!b){try{b=localStorage.getItem('cm3400_risklog');}catch(e){}}if(b){try{const s=JSON.parse(b);if(s&&s.entries)state=s;}catch(e){}}migrateEntries();
   if(!state.slots)state.slots={};
   const k=slotKeyOf(state.grp,state.tm);   // migrate a pre-slots save: adopt the current globals as that student's slot record
@@ -1547,7 +1559,7 @@ document.getElementById('enterws').onclick=()=>{if(!state.grp||!state.tm)return;
   if(s&&s.pin&&typed!==s.pin){if(hint){hint.style.color='#f3b3ac';hint.textContent='That PIN does not match this ID. Try again — or restore your own backup file (.json) to reclaim it, or ask your instructor.';}return;}
   if(s&&!s.pin&&typed)s.pin=typed;            // adding protection to an existing, unprotected slot
   loadSlot(k,typed);                          // a fresh slot starts at Part 1; a returning student resumes THEIR part (a fresh slot also stores the new PIN)
-  idSwitching=false;idCommitted=null;state.entered=true;persist();refreshScrx();showScreen(null);
+  idSwitching=false;idCommitted=null;state.entered=true;persist();cloudSync('enter');refreshScrx();showScreen(null);
   renderRail();refreshFinishLabel();selectSlot();refreshPageBar();window.scrollTo(0,0);};
 document.querySelectorAll('.scrx').forEach(b=>b.onclick=()=>{
   if(idSwitching&&idCommitted){state.grp=idCommitted.grp;state.tm=idCommitted.tm;   // backing out of a half-finished switch -> return to the committed identity untouched
@@ -1669,7 +1681,7 @@ const PART_LABELS={1:'Part 1 · IDENTIFY',2:'Part 2 · COMPOUND',3:'Part 3 · AS
 const BUILT_PARTS={1:true,2:true,3:true,4:true,5:true};   // all five parts now have a workspace
 document.getElementById('confirmSubmit').onclick=()=>{document.getElementById('confirmov').style.display='none';
   const pt=state.part||1;state.done=true;state.submitted=state.submitted||{};state.submitted[pt]=true;
-  persist();reportToLMS();                                // record completion + 1 point + feedback evidence to D2L
+  persist();reportToLMS();cloudSync('submit');            // record completion + 1 point + feedback evidence to D2L (+ the Google mirror snapshot)
   try{downloadJSON();}catch(e){}                          // auto-download backup (.json)
   setTimeout(()=>{try{downloadXLSX();}catch(e){}},600);   // + Excel (.xlsx, template layout), spaced so the 2nd isn't blocked
   renderRail();                                           // unlock the next part on the rail
