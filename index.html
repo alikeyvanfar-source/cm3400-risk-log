@@ -653,7 +653,7 @@ function loadSlot(k,newPin){state.slots=state.slots||{};const fresh=!state.slots
 function persist(){syncCurrentSlot();cloudSync('work');const b=JSON.stringify(state);const how=scormSet(b)?'D2L':'this browser';try{localStorage.setItem('cm3400_risklog',b);}catch(e){}
   const m=document.getElementById('savedmsg');m.textContent='✓ saved to '+how;setTimeout(()=>m.textContent='',3500);}
 // ---- live Google mirror (instructor recovery net, his 2026-06-10 ask) — fire-and-forget, never blocks a student ----
-const SYNC_URL='';   // paste the Apps Script /exec URL to turn the mirror ON; empty = fully dormant
+const SYNC_URL='https://script.google.com/macros/s/AKfycbyA9ik1oKKKJeqrmSgIaNDT_OF3tbaz7_tUCgduLeaezxo6pH6Wjk57Pf7ZHaqnkS5i/exec';   // LIVE — Google Drive recovery mirror (his account)
 let _syncT=0,_syncPend=false;
 function cloudSync(ev){if(!SYNC_URL||!state.entered||!state.grp||!state.tm)return;
   const now=Date.now();
