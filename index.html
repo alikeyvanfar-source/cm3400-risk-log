@@ -253,7 +253,7 @@
   .vprog>b{display:block;height:100%;width:0;background:var(--teal);}
   tr.voiceon td{box-shadow:inset 0 0 0 9999px rgba(46,125,107,.06);}
   td.kactive,.kactive{box-shadow:inset 0 0 0 2px var(--goldb)!important;background:#FBF2DF!important;transition:box-shadow .15s,background .15s;}   /* HIS STANDARD: highlights are ORANGE bordered, like Parts 1–2 */
-  .scr .kactive{background:rgba(224,161,44,.12)!important;border-radius:9px;}   /* on the DARK onboarding screens the cream fill would wash out the white text (his catch) — gold border + a faint tint only */
+  .scr .kactive{background:rgba(224,161,44,.12)!important;box-shadow:0 0 0 2.5px var(--goldb)!important;border-radius:9px;}   /* DARK onboarding screens: faint tint + an OUTER ring (an inset border would sit on top of labels) */
   .scr .kglow{border-radius:9px;}
   td.kactive .cell{position:relative;z-index:1;}
   .kglow{box-shadow:0 0 0 2px var(--goldb),0 0 7px rgba(224,161,44,.6)!important;border-color:var(--goldb)!important;transition:box-shadow .15s;}
@@ -1233,8 +1233,9 @@ function introTarget(n,f){const S=['','#scr-overview','#scr-welcome','#scr-jackm
   if(n===1){if(f==='parts'||f==='lobj')return q('.lobj');if(f==='journey')return q('.lead');if(f==='next')return document.getElementById('o2w');}
   if(n===2){if(f==='brief')return q('.lead');if(f==='why')return q('p[style*="border-left"]');if(f==='gallery'||f==='zoom')return document.getElementById('sitegal');}
   if(n===3){if(f==='card')return q('.jmcard');if(f==='qr')return document.getElementById('jmqr2');if(f==='coach')return q('p[style*="border-left"]');}
-  if(n===4){if(f==='semrow')return q('.idrow');if(f==='grprow')return document.querySelectorAll(S+' .idrow')[1];
-    if(f==='pin'){const pr=document.getElementById('pinrow');return (pr&&pr.style.display!=='none')?pr:document.querySelectorAll(S+' .idrow')[1];}
+  if(n===4){const rowCells=i=>{const r=document.querySelectorAll(S+' .idrow')[i];return r?Array.from(r.children):null;};   // highlight the dropdown CELLS, not the full-width row (a row-wide box stretches over empty space and crosses the labels)
+    if(f==='semrow')return rowCells(0);if(f==='grprow')return rowCells(1);
+    if(f==='pin'){const pr=document.getElementById('pinrow');return (pr&&pr.style.display!=='none')?pr:rowCells(1);}
     if(f==='idcard')return document.getElementById('dlid');if(f==='enter')return document.getElementById('enterws');}
   return null;}
 function playIntroGuide(n){if(introN===n){stopIntroGuide();return;}
@@ -1248,7 +1249,9 @@ function playIntroGuide(n){if(introN===n){stopIntroGuide();return;}
     let idx=-1;for(let k=0;k<cues.length;k++){if(a.currentTime>=cues[k].t)idx=k;else break;}
     if(idx!==lastK){lastK=idx;
       document.querySelectorAll('.scr .kactive,.scr .kglow').forEach(el=>el.classList.remove('kactive','kglow'));
-      if(idx>=0){const el=introTarget(n,cues[idx].f);if(el){el.classList.add((el.tagName==='BUTTON'||el.tagName==='IMG')?'kglow':'kactive');el.scrollIntoView({block:'nearest',behavior:'smooth'});}}}};
+      if(idx>=0){const t=introTarget(n,cues[idx].f);const list=Array.isArray(t)?t:(t?[t]:[]);
+        list.forEach(e=>e.classList.add((e.tagName==='BUTTON'||e.tagName==='IMG')?'kglow':'kactive'));
+        if(list[0])list[0].scrollIntoView({block:'nearest',behavior:'smooth'});}}};
   const clr=()=>stopIntroGuide();a.onended=clr;a.onerror=clr;a.play().catch(()=>{});}
 
 // ---- per-row voice guide (instructor clone) + karaoke cell highlighting ----
