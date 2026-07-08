@@ -798,7 +798,7 @@ function renderNarrate(){
   const card='background:#fff;border:1px solid #E4DECF;border-radius:12px;padding:16px 18px;margin:0 0 14px;color:#23262B';
   const kick='font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#B9831D;font-weight:800;margin-bottom:4px';
   let h='<div style="max-width:1080px;margin:0 auto;font-family:inherit">';
-  h+='<div style="'+card+'"><div style="'+kick+'">PART 6 · NARRATE · OUTLINE #15 · MODULE 7 — worth 6 points, scored by the Narrative Assessor</div>'+
+  h+='<div style="'+card+'"><div style="'+kick+'">PART 6 · NARRATE · OUTLINE #15 · MODULE 7 — worth 6 points · the Narrative Assessor predicts your score range; your instructor assigns the final grade</div>'+
      '<h2 style="font-family:Georgia,serif;margin:.1em 0 .3em;color:#13243B">Project Risk & Safety Narrative — your capstone simulation</h2>'+
      '<p style="margin:.3em 0;font-size:13.5px;color:#5B6675">Your Senior Capstone (CM 4900, Tab 5) requires a <b>Risk & Safety Narrative</b> built on a register of your five most significant risks. You built that register in Parts 1–5 — it is loaded below. Now write the narrative the brief demands:</p>'+
      '<blockquote style="background:#FBF2DF;border-left:4px solid #E0A12C;border-radius:8px;padding:10px 14px;font-style:italic;color:#13243B;margin:8px 0">“Provide a narrative discussion regarding high-risk features of work / liability issues to be managed during construction that may adversely impact the completion date and the project team’s plan to mitigate these risks.”</blockquote>'+
@@ -828,18 +828,18 @@ function renderNarrate(){
        '<button class="btn finish" id="p6finish" onclick="finishPart6()">✓ Finish Part 6</button></div>'+
      '<div id="p6done" style="display:none;background:#EAF4F0;border:1px solid #bfe0d4;border-radius:8px;padding:10px 13px;color:#1f4a3e;font-size:13px;margin-top:8px"><b>Part 6 finished ✓</b> — your backup and narrative PDF downloaded. Now get your score below.</div></div>';
   h+='<div style="background:#F4F1FA;border:1px solid #d9d0ec;border-radius:12px;padding:16px 18px;margin:0 0 14px;color:#2b2440">'+
-     '<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B44A6;font-weight:800">Get your score — this is your grade (up to 3 attempts, best counts)</div>'+
+     '<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B44A6;font-weight:800">Get your score range — where your work stands now (up to 3 attempts)</div>'+'<div style="font-size:12.5px;color:#4a3d6b;line-height:1.5;margin-top:6px">The Assessor gives you a <b>score range</b> (for example, <b>80\u201390</b>) with the reasons behind it \u2014 an honest band, because that is how careful AI grading works. It is <b>not</b> your final grade: your instructor reads your narrative and Score Sheet and <b>assigns the final Part\u00a06 score</b>.</div>'+
      '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:8px">'+
      '<img src="'+P6_QR+'" alt="QR to the Narrative Assessor" style="width:132px;height:132px;border:5px solid #fff;border-radius:10px;box-shadow:0 5px 15px rgba(19,36,59,.18)">'+
      '<ol style="flex:1;min-width:260px;margin:0;padding-left:18px;font-size:13.5px;line-height:1.6">'+
      '<li>Open the <a href="'+P6_GPT+'" target="_blank" rel="noopener" style="color:#5B44A6;font-weight:700">Narrative Assessor</a> (scan the QR to grab it on your phone — but do the work on your computer; a free ChatGPT account works).</li>'+
      '<li><b>Upload your narrative PDF</b> (the one you downloaded above) and say: “Please score my narrative.”</li>'+
-     '<li>It scores the rubric, gives you a learning guide, and <b>automatically returns a Score Sheet PDF</b> with your score and a verification code.</li>'+
+     '<li>It scores the rubric, gives you a learning guide, and <b>automatically returns a Score Sheet PDF</b> with your <b>predicted score range</b> (e.g. 80\u201390 \u2014 a band, not a single number), a learning guide, and a verification code.</li>'+
      '<li>Not happy? Come back here, improve your writing, <b>re-download</b>, and upload again — up to <b>3 attempts</b>.</li></ol></div>'+
      '<div style="background:#fff;border:1px solid #d9d0ec;border-radius:9px;padding:12px 14px;margin-top:12px;font-size:13.5px;color:#2b2440"><b style="color:#3d2d6b">Then submit TWO PDFs to the D2L Part-6 assignment — both in the same dropbox:</b>'+
        '<div style="margin:7px 0 0 0;padding-left:2px"><div style="margin:4px 0"><b>1) Your narrative PDF</b> — the one you download from <b>this page</b>. Download it again after your final edits so you submit the <b>latest version</b>.</div>'+
        '<div style="margin:4px 0"><b>2) Your Score Sheet PDF</b> — the report the <b>Narrative Assessor gives you in ChatGPT</b>, for the attempt whose score you’re happy with.</div></div></div>'+
-     '<div style="background:#FBF2DF;border:1px solid #ecd9a8;border-radius:8px;padding:9px 13px;color:#6b5312;font-size:12.5px;margin-top:8px"><b>Integrity:</b> the Assessor coaches — it will not write your narrative, and your instructor checks every Score Sheet’s verification code. A missing or altered code = no credit. Your own words; this exact skill returns in CM 4900.</div></div>';
+     '<div style="background:#FBF2DF;border:1px solid #ecd9a8;border-radius:8px;padding:9px 13px;color:#6b5312;font-size:12.5px;margin-top:8px"><b>Integrity:</b> the Assessor coaches — it will not write your narrative, and your instructor checks every Score Sheet’s verification code and <b>assigns your final grade</b>. A missing or altered code = no credit. Your own words; this exact skill returns in CM 4900.</div></div>';
   h+='</div>';
   document.getElementById('tbody').innerHTML='<tr><td colspan="1" style="background:#F4F1EA;padding:14px 10px">'+h+'</td></tr>';
 }
