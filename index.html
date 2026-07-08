@@ -544,7 +544,7 @@
 </div></div>
 
 <div class="ov" id="ov"><div class="modal"><div class="mh"><h3 id="mtitle"></h3><button class="x" onclick="closeModal()">×</button></div><div class="mb" id="mbody"></div></div></div>
-<div class="doneov" id="doneov"><div class="card"><div class="ck">✓</div><h2>Part 1 submitted</h2><p id="donemsg"></p>
+<div class="doneov" id="doneov"><div class="card"><div class="ck">✓</div><h2 id="donehdr">Part 1 submitted</h2><p id="donemsg"></p>
   <div id="nextnote" style="display:none;font-size:13px;background:rgba(255,255,255,.13);border-radius:8px;padding:10px 14px;margin:4px 0 14px;line-height:1.45"></div>
   <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px">
     <button class="btn primary" id="gonext">Continue to Part 2 →</button>
@@ -1787,8 +1787,8 @@ function reportToLMS(){if(!API)return false;try{const rep=buildActionReport();
   API.SetValue('cmi.comments_from_learner.0.comment',actionReportText(rep));
   API.SetValue('cmi.comments_from_learner.0.timestamp',rep.generated);
   API.Commit('');return true;}catch(e){return false;}}
-const PART_LABELS={1:'Part 1 · IDENTIFY',2:'Part 2 · COMPOUND',3:'Part 3 · ASSESS',4:'Part 4 · RESPOND',5:'Part 5 · CONTROL'};
-const BUILT_PARTS={1:true,2:true,3:true,4:true,5:true};   // all five parts now have a workspace
+const PART_LABELS={1:'Part 1 · IDENTIFY',2:'Part 2 · COMPOUND',3:'Part 3 · ASSESS',4:'Part 4 · RESPOND',5:'Part 5 · CONTROL',6:'Part 6 · NARRATE'};
+const BUILT_PARTS={1:true,2:true,3:true,4:true,5:true,6:true};   // Part 6 (Narrate) lives in-app too
 document.getElementById('confirmSubmit').onclick=()=>{document.getElementById('confirmov').style.display='none';
   const pt=state.part||1;state.done=true;state.submitted=state.submitted||{};state.submitted[pt]=true;
   persist();reportToLMS();cloudSync('submit');            // record completion + 1 point + feedback evidence to D2L (+ the Google mirror snapshot)
@@ -1801,13 +1801,17 @@ document.getElementById('confirmSubmit').onclick=()=>{document.getElementById('c
     :(pt===4)?('You completed responses for <b>'+rep.score.correct+' of '+rep.score.required+'</b> risks')
     :(pt===5)?('Control plans are complete for <b>'+rep.score.correct+' of '+rep.score.required+'</b> risks')
     :('The analysis logged <b>'+rep.score.correct+' of '+rep.score.required+'</b> classifications on-scene');
-  document.getElementById('donemsg').innerHTML='<b>'+PART_LABELS[pt]+' submitted — 1 point recorded in D2L.</b><br>'+scoreLine+(rep.flaggedAtSubmit?' ('+rep.flaggedAtSubmit+' still flagged)':'')+'. A <b>Backup (.json)</b> + <b>Excel (.xlsx)</b> copy downloaded to your computer.';
+  {const _dh=document.getElementById('donehdr');if(_dh)_dh.textContent=(PART_LABELS[pt]||('Part '+pt))+' submitted';}
+  document.getElementById('donemsg').innerHTML='<b>'+PART_LABELS[pt]+' submitted — recorded in D2L.</b><br>'+scoreLine+(rep.flaggedAtSubmit?' ('+rep.flaggedAtSubmit+' still flagged)':'')+'. A <b>Backup (.json)</b> + <b>Excel (.xlsx)</b> copy downloaded to your computer.';
   document.getElementById('nextnote').style.display='none';
   const nextN=pt+1,gn=document.getElementById('gonext'),cav=document.getElementById('gocaveat');
   if(nextN<=5){gn.style.display='';gn.textContent='Continue to Part '+nextN+' →';
     cav.style.display='';cav.innerHTML='Continue to Part '+nextN+' <b>Only</b> if <b>Module '+(nextN+1)+'</b> is open for you in D2L — that’s where Part '+nextN+' is taught.';
     gn.onclick=()=>{ if(BUILT_PARTS[nextN]&&partUnlocked(nextN)){document.getElementById('doneov').style.display='none';setPart(nextN);}
       else{const nn=document.getElementById('nextnote');nn.style.display='block';nn.innerHTML='<b>'+PART_LABELS[nextN]+'</b> opens with <b>Module '+(nextN+1)+'</b> in D2L. Open that module when you’re ready — your work is saved and carries forward.';} };
+  }else if(nextN===6){gn.style.display='';gn.textContent='Write your Narrative — Part 6 →';
+    cav.style.display='';cav.innerHTML='Part 6 · NARRATE opens right here in this app — your five risks are already loaded. It is worth <b>6 points</b>, scored by the Narrative Assessor.';
+    gn.onclick=()=>{document.getElementById('doneov').style.display='none';setPart(6);};
   }else{gn.style.display='none';cav.style.display='none';}
   document.getElementById('doneov').style.display='flex';};   // no auto-close — student picks what's next
 function dl(name,txt,mime){const b=new Blob([txt],{type:mime});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();}
