@@ -157,7 +157,7 @@ function shell(step,inner){const labels=["The objective","Your 5 risks","Write i
     '<div class="foot">© 2026 A² Learning Studio · Dr. Ali Keyvanfar &amp; Dr. Arezou Shafaghat · Kennesaw State University · For educational use only.</div>'}
 function cover(){const resume=(S.step>0||S.name);
   app.innerHTML='<section class="cover"><div class="wrap"><div class="bar"></div>'+
-    '<div class="kicker" style="color:var(--amber)">CM 3400 / CM 6600 · COURSE PROJECT · PART 6 — NARRATE</div>'+
+    '<div class="kicker" style="color:var(--amber)">CM 3400 / CM 6600 · COURSE PROJECT · PART 6 · OUTLINE #15 — NARRATE</div>'+
     '<h1>Project Risk &amp; Safety Narrative</h1>'+
     '<div class="sub">The final part of your project — and a capstone simulator. Turn the register you built in Parts 1–5 into the exact Risk &amp; Safety Narrative your Senior Capstone (CM 4900, Tab 5) will demand.</div>'+
     '<div class="namebox"><label>Your name</label><input type="text" id="nm" placeholder="Last name, First name" value="'+esc(S.name)+'">'+
@@ -271,7 +271,7 @@ async function makePDF(btn){if(!window.jspdf){alert("PDF tool not loaded — che
     function kick(t){ensure(16);doc.setFont("helvetica","bold");doc.setFontSize(9);tc(AMB);doc.text(san(t).toUpperCase(),M,y);y+=13}
     function para(t,fs,lh){doc.setFont("helvetica","normal");doc.setFontSize(fs);tc(BODY);doc.splitTextToSize(san(t),cw).forEach(function(l){ensure(lh);doc.text(l,M,y);y+=lh})}
     doc.setFillColor(INK[0],INK[1],INK[2]);doc.rect(0,0,W,124,"F");doc.setFillColor(AMB[0],AMB[1],AMB[2]);doc.rect(M,44,42,5,"F");
-    doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(224,161,44);doc.text("CM 3400 / CM 6600  -  COURSE PROJECT  -  PART 6: NARRATE",M,38);
+    doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(224,161,44);doc.text("CM 3400 / CM 6600  -  COURSE PROJECT  -  PART 6 (OUTLINE #15): NARRATE",M,38);
     doc.setFont("times","bold");doc.setFontSize(21);doc.setTextColor(255,255,255);doc.text("Project Risk & Safety Narrative",M,74);
     doc.setFont("times","italic");doc.setFontSize(11);doc.setTextColor(205,214,228);doc.text(san((S.project||"Project")+"  -  Capstone Tab 5 (Site Logistics, Safety & Project Risk)"),M,96);
     y=148;doc.setFont("helvetica","normal");doc.setFontSize(11);tc(BODY);
