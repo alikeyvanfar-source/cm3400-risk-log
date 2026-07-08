@@ -1,0 +1,301 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Part 6 — Project Risk &amp; Safety Narrative — CM 3400 / CM 6600</title><style>
+:root{--ink:#13243B;--ink2:#1C3252;--amber:#E0A12C;--amber2:#B9831D;--brick:#B0472E;--teal:#2E7D6B;--green:#2E7D4F;--grey:#5B6675;--line:#E4DECF;--paper:#F4F1EA;--body:#23262B;--violet:#5B44A6}
+*{box-sizing:border-box}html,body{margin:0;padding:0;min-height:100%}
+body{background:var(--paper);color:var(--body);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber2);font-weight:700}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 18px;font-weight:700}
+.btn-primary{background:var(--ink);color:#fff}.btn-primary:hover{background:var(--ink2)}.btn-primary[disabled]{opacity:.45;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}.btn-ghost:hover{border-color:var(--amber)}
+.btn-amber{background:var(--amber);color:var(--ink)}.btn-amber:hover{background:var(--amber2);color:#fff}
+.btn-violet{background:var(--violet);color:#fff}.btn-violet:hover{filter:brightness(1.08)}
+input[type=text],textarea,select{width:100%;font:inherit;color:var(--body);border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--amber)}textarea{resize:vertical;line-height:1.5}
+.a2{display:inline-flex;align-items:center;gap:8px}
+.a2 .mk{width:30px;height:30px;border-radius:7px;background:var(--amber);color:var(--ink);font-family:Georgia;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.a2 .mk sup{font-size:9px}.a2 .nm{font-size:11px;font-weight:800;letter-spacing:1px;color:#fff}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+.cover{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#0f1d30 0%,#13243B 55%,#1C3252 100%);color:#fff}
+.cover .bar{width:62px;height:6px;background:var(--amber);border-radius:3px;margin:0 0 22px}
+.cover h1{font-size:40px;line-height:1.06;margin:.1em 0 .15em}.cover .sub{font-size:18px;color:#cdd6e4;font-style:italic;margin-bottom:22px;max-width:760px}
+.namebox{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:16px;margin-bottom:18px;max-width:460px}
+.namebox label{font-size:13px;color:#cdd6e4;display:block;margin-bottom:6px}.namebox input{background:#fff;color:var(--ink)}
+.cover .how{font-size:13.5px;color:#aebbcf;margin-top:14px;max-width:720px}
+header.top{background:var(--ink);color:#fff;height:50px;display:flex;align-items:center;position:sticky;top:0;z-index:5}
+header.top .row{display:flex;align-items:center;gap:14px;justify-content:space-between;width:100%}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.steps .st{font-size:11.5px;color:#9fb0c6;padding:4px 10px;border-radius:999px}
+.steps .st.on{background:var(--amber);color:var(--ink);font-weight:800}.steps .st.done{color:#86d6b9}
+.page{padding:22px 0 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 16px;box-shadow:0 8px 22px rgba(19,36,59,.06)}
+.card h2{font-size:22px;color:var(--ink);margin:.1em 0 .3em}.card h3{font-size:15px;color:var(--ink2);margin:.7em 0 .3em}
+.crit{background:#FBF2DF;border-left:4px solid var(--amber);border-radius:10px;padding:14px 16px;margin:12px 0}
+.crit .cl{font-size:11px;font-weight:800;letter-spacing:.06em;color:#8a6d1f;text-transform:uppercase;margin-bottom:6px}
+.crit blockquote{font-style:italic;color:var(--ink);display:block;margin:0}
+.mut{color:var(--grey);font-size:13.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:820px){.two{grid-template-columns:1fr}}
+.seg{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
+.seg button{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:12px 16px;text-align:left;flex:1;min-width:240px}
+.seg button .t{font-weight:800;display:block}.seg button .s{font-weight:400;font-size:12px;color:var(--grey);display:block;margin-top:3px}
+.seg button.on{border-color:var(--amber);background:#FCF6E8;box-shadow:0 0 0 2px rgba(224,161,44,.25)}
+.risk{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 12px;background:#FCFAF5}
+.risk .rh{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.risk .rn{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font-family:Georgia;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.risk .band{margin-left:auto;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px}
+.b-Extreme{background:#F3D6CE;color:#8a2c17}.b-Critical{background:#F6E0C9;color:#8a4f14}.b-High{background:#FBF0CE;color:#7a5f10}.b-Moderate{background:#DDEFE6;color:#1f5a44}.b-Minor{background:#E6EBF0;color:#3a4b5e}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pirow{display:grid;grid-template-columns:1fr 1fr auto;gap:9px;align-items:end;margin-top:8px;padding-top:9px;border-top:1px dashed var(--line)}
+.pirow .sc{font-size:12px;color:var(--ink2);font-weight:700;white-space:nowrap;padding-bottom:8px}
+.fld{margin:7px 0}.fld label{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:3px}
+.fld .hint{font-size:11px;color:var(--grey);font-weight:400;font-style:italic}
+.drop{border:2px dashed var(--amber);border-radius:12px;padding:22px 18px;text-align:center;background:#FCF6E8;cursor:pointer}
+.drop:hover,.drop.over{background:#F7ECCF}
+.drop .di{font-size:26px}.drop .dt{font-weight:800;color:var(--ink);margin-top:6px}.drop .ds{font-size:12.5px;color:var(--grey);margin-top:4px}
+.upmsg{font-size:13px;margin:10px 0;padding:10px 13px;border-radius:9px}
+.upmsg.ok{background:#EAF4F0;border:1px solid #bfe0d4;color:#1f4a3e}.upmsg.no{background:#FBEEEA;border:1px solid #e6c4b8;color:#7a2f1c}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:10px}
+.ex{background:#F1F5F3;border:1px solid #cfe3db;border-radius:10px;padding:14px 16px;margin:10px 0;font-size:13.5px;color:#23413a}
+.ex h4{margin:.1em 0 .4em;font-family:Georgia;color:var(--ink)}
+.rub{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:8px 0}
+.rub .rr{display:grid;grid-template-columns:1fr 54px;border-top:1px solid var(--line);align-items:center}
+.rub .rr:first-child{border-top:0;background:#F6F1E6;font-weight:800;color:var(--ink2)}
+.rub .rc{padding:8px 12px;font-size:13px}.rub .rp{padding:8px 10px;text-align:center;font-weight:800;color:var(--ink2);font-size:13px}
+.count{font-size:11.5px;color:var(--grey);text-align:right}
+.saved{font-size:12px;color:var(--teal);height:16px;margin:4px 0}
+.note{background:#EEF5F2;border:1px solid #cfe3db;border-radius:10px;padding:12px 15px;color:#23413a;font-size:13.5px;margin-top:8px}
+.gpt{background:#F4F1FA;border:1px solid #d9d0ec;border-radius:12px;padding:18px 20px;margin:14px 0}
+.gpt h3{color:#3d2d6b;margin:.1em 0 .4em}
+.gpt ol{margin:.4em 0 .4em 1.2em;padding:0}.gpt li{margin:.35em 0;font-size:14px}
+.qrbox{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.qrbox img{width:150px;height:150px;border:6px solid #fff;border-radius:10px;box-shadow:0 6px 18px rgba(19,36,59,.15)}
+.warn{background:#FBF2DF;border:1px solid #ecd9a8;border-radius:10px;padding:12px 15px;color:#6b5312;font-size:13.5px;margin-top:10px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+.foot{color:var(--grey);font-size:12px;text-align:center;padding:20px 0}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}.pirow{grid-template-columns:1fr 1fr}.cover h1{font-size:31px}}
+</style></head><body><div id="app"></div><script src="jspdf.umd.min.js"></script><script>
+const KEY="cm3400_part6_v1", GPT_URL="https://chatgpt.com/g/g-6a4dad32d908819187587b8c38626c41-narrative-assessor";
+const app=document.getElementById("app");
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function newRisk(){return{id:"",feature:"",cause:"",event:"",cons:"",P:"",I:"",score:"",band:"",resp:""}}
+let S=load()||{name:"",project:"Midtown Medical Office Building",ctx:"",step:0,started:false,risks:[],narr:{feat:"",liab:"",impact:"",mit:""},uploadMsg:null};
+if(!S.risks)S.risks=[];if(!S.narr)S.narr={feat:"",liab:"",impact:"",mit:""};
+while(S.risks.length<5)S.risks.push(newRisk());
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function save(flash){localStorage.setItem(KEY,JSON.stringify(S));if(flash){var e=document.getElementById("saved");if(e){e.textContent="Saved ✓";setTimeout(function(){if(e)e.textContent=""},1100)}}}
+
+const CRIT=[
+ ["High-risk features of work","Name the specific activities or scopes that carry the most risk (a shared tower crane, long-lead switchgear, a winter structural pour)."],
+ ["Liability & insurance","Tie each risk to who bears it and how it is covered — bonds, builder's risk, CGL — and how the contract allocates it."],
+ ["Impact on the completion date","Explain how each risk, if it fires, threatens the schedule — which activity slips, float vs. substantial completion, LD exposure."],
+ ["The team's plan to mitigate","State the response for each — avoid, transfer, mitigate, or accept — and the concrete control action."],
+];
+const RUBRIC=[["High-risk features of work — named & specific",20],["Liability & insurance / bonds discussed",20],["Impact on the completion date explained",20],["Mitigation plan — responses + control actions",20],["Grounded in your five risks (each scored P×I & banded)",12],["Professional length & specificity",8]];
+const EXAMPLE={
+ feat:"The Midtown Medical Office Building is a six-story, fast-track project on a tight downtown corner, and three features of work carry most of the risk: a single shared tower crane that every trade competes for, a long-lead electrical switchgear order on the critical path, and a structural deck pour scheduled through the coldest weeks of winter.",
+ liab:"These risks are allocated deliberately. The switchgear delivery risk is transferred to the vendor through a liquidated-damages clause, and the winter-pour workmanship risk is backed by the subcontractor's performance bond. Builder's risk insurance covers physical loss to the work in place, and the general contractor carries commercial general liability for third-party claims on the crowded corner site.",
+ impact:"If the switchgear slips three weeks, it pushes electrical rough-in into the winter-pour window, which leans harder on the one shared crane — so a single delivery miss cascades into a slipped substantial-completion date, not just a late panel.",
+ mit:"The team mitigates the crane conflict with a locked daily lift schedule and a named owner, transfers the switchgear risk by contract while keeping a rental-generator fallback, and accepts the residual winter-weather risk with a heated-enclosure control action logged in the register and re-checked at every pour.",
+};
+
+function bandOf(s){s=+s;return s>=20?"Extreme":s>=15?"Critical":s>=10?"High":s>=5?"Moderate":s>=1?"Minor":""}
+function computeRow(r){if(r&&r.P&&r.I){var s=(+r.P)*(+r.I);r.score=String(s);r.band=bandOf(s)}return r}
+function parseCSV(text){const rows=[];let i=0,cell="",row=[],q=false;
+  while(i<text.length){const c=text[i];
+    if(q){if(c=='"'){if(text[i+1]=='"'){cell+='"';i++}else q=false}else cell+=c}
+    else{if(c=='"')q=true;else if(c==",")row.push(cell),cell="";else if(c=="\n"){row.push(cell);rows.push(row);row=[];cell=""}else if(c=="\r"){}else cell+=c}
+    i++}
+  if(cell.length||row.length){row.push(cell);rows.push(row)}return rows}
+function ingestCSV(text){const rows=parseCSV(text);let hi=-1;
+  for(let r=0;r<rows.length;r++){const h=rows[r].map(x=>(x||"").toLowerCase());
+    if(h[0]&&h[0].indexOf("risk id")>=0&&h.some(x=>x.indexOf("cause")>=0)&&h.some(x=>x.indexOf("consequence")>=0)){hi=r;break}}
+  if(hi<0)throw new Error("Could not find the register header in this CSV.");
+  const head=rows[hi].map(x=>(x||"").toLowerCase());const col=n=>head.findIndex(x=>x.indexOf(n)>=0);
+  const ci={cat:col("category"),cause:col("cause"),event:col("event"),cons:col("consequence"),band:col("band"),resid:col("residual")};
+  const reg={};
+  for(let r=hi+1;r<rows.length;r++){const c=rows[r];if(!/^R\d+$/i.test((c[0]||"").trim())){if(Object.keys(reg).length&&(c.length<=1||!c[0]))break;else continue}
+    const rid=(c[0]||"").trim().toUpperCase();
+    reg[rid]={id:rid,feature:(ci.cat>=0?c[ci.cat]:"")||"",cause:(ci.cause>=0?c[ci.cause]:"")||"",event:(ci.event>=0?c[ci.event]:"")||"",cons:(ci.cons>=0?c[ci.cons]:"")||"",band:(ci.band>=0?c[ci.band]:"")||"",resp:(ci.resid>=0?c[ci.resid]:"")||"",P:"",I:"",score:""}}
+  let ni=-1;for(let r=hi+1;r<rows.length;r++){const h=rows[r].map(x=>(x||"").toLowerCase());if(h[0]&&h[0].indexOf("risk id")>=0&&h.some(x=>x==="score")){ni=r;break}}
+  if(ni>=0){const nh=rows[ni].map(x=>(x||"").toLowerCase());const sc=nh.indexOf("score"),bc=nh.indexOf("band"),rtc=nh.findIndex(x=>x.indexOf("response type")>=0),rac=nh.findIndex(x=>x.indexOf("response action")>=0);
+    for(let r=ni+1;r<rows.length;r++){const c=rows[r];const rid=(c[0]||"").trim().toUpperCase();if(!/^R\d+$/i.test(rid))continue;
+      const sv=sc>=0?parseInt(c[sc]||"",10):NaN;if(!isNaN(sv)&&sv>0&&reg[rid]){reg[rid].score=String(sv);if(!reg[rid].band&&bc>=0)reg[rid].band=c[bc]||bandOf(sv);
+        const rt=rtc>=0?(c[rtc]||""):"",ra=rac>=0?(c[rac]||""):"";if(rt||ra)reg[rid].resp=(rt?rt+": ":"")+ra}}}
+  return Object.values(reg)}
+function ingestJSON(text){const d=JSON.parse(text);const ent=d.entries||{};
+  let grp=(d._identity&&d._identity.group)?String(d._identity.group):null;let E=null;
+  if(grp&&ent[grp])E=ent[grp];
+  else{const keys=Object.keys(ent);if(keys.length===1)E=ent[keys[0]];else{let best=null,bn=-1;keys.forEach(k=>{const n=Object.keys(ent[k]||{}).length;if(n>bn){bn=n;best=k}});E=ent[best]||{}}}
+  if(!E||typeof E!=="object")throw new Error("No risk entries found in this JSON.");
+  const agg=a=>{const v=(a||[]).filter(x=>x>0);return v.length?Math.max.apply(null,v):0};
+  const out=[];
+  Object.keys(E).forEach(rid=>{if(!/^R\d+$/i.test(rid))return;const e=E[rid]||{};const rt=e.rt||{};
+    let P=0,I=0;Object.keys(rt).forEach(k=>{const a=agg(rt[k]);if(k[0]==="c")P=Math.max(P,a);else if(k[0]==="e")I=Math.max(I,a)});
+    const Sc=(P&&I)?P*I:0;let resp="";const rsp=e.rsp||{};const rk=Object.keys(rsp).find(k=>{const v=rsp[k]||{};return v.t||v.a});if(rk){const v=rsp[rk];resp=(v.t?v.t+": ":"")+(v.a||"")}
+    out.push({id:rid.toUpperCase(),feature:e.category||"",cause:e.cause||"",event:e.event||"",cons:e.consequence||"",P:P?String(P):"",I:I?String(I):"",score:Sc?String(Sc):"",band:bandOf(Sc),resp:resp})})
+  return out}
+function applyUpload(list){list=list.filter(r=>r&&(r.score||r.cause||r.feature));
+  list.sort((a,b)=>(parseInt(b.score||"0",10)||0)-(parseInt(a.score||"0",10)||0));
+  const top=list.slice(0,5);let n=0;const need=[];
+  for(let i=0;i<5;i++){const r=top[i]||{};S.risks[i]=Object.assign(newRisk(),{id:r.id||"",feature:r.feature||"",cause:r.cause||"",event:r.event||"",cons:r.cons||"",P:r.P||"",I:r.I||"",score:r.score||"",band:r.band||"",resp:r.resp||""});
+    if(r.id)n++;if(r.id&&!(r.cause&&r.cons))need.push(r.id)}
+  S.uploadMsg={ok:true,txt:"Loaded your "+n+" most significant risk"+(n===1?"":"s")+" from your register"+(need.length?" — confirm the cause/consequence for "+need.join(", ")+".":".")};save()}
+function handleFile(file){const rd=new FileReader();rd.onload=function(){try{const txt=rd.result;let list;
+    if(/\.json$/i.test(file.name)||/^\s*\{/.test(txt))list=ingestJSON(txt);else list=ingestCSV(txt);
+    if(!list.length)throw new Error("No risks were found in the file.");applyUpload(list);render()
+  }catch(e){S.uploadMsg={ok:false,txt:"Couldn't read that file: "+e.message+"  You can still type your five risks below."};save();render()}};
+  rd.onerror=function(){S.uploadMsg={ok:false,txt:"Could not open that file."};save();render()};rd.readAsText(file)}
+function wc(s){return (s||"").trim()?s.trim().split(/\s+/).length:0}
+function regRows(){return S.risks.filter(function(r){return r&&(r.feature||r.cause||r.cons)})}
+
+// ---- render ----
+function render(){window.scrollTo(0,0);if(!S.started||!(S.name&&S.name.trim()))return cover();
+  if(S.step===0)return pgObjective();if(S.step===1)return pgRisks();if(S.step===2)return pgDraft();return pgFinish()}
+function shell(step,inner){const labels=["The objective","Your 5 risks","Write it","PDF + Assessor"];
+  app.innerHTML='<header class="top"><div class="wrap row"><div class="a2"><span class="mk">A<sup>2</sup></span><span class="nm">A² LEARNING STUDIO</span></div>'+
+    '<div class="steps">'+labels.map(function(l,i){return '<span class="st '+(i===step?"on":(i<step?"done":""))+'">'+(i+1)+". "+esc(l)+'</span>'}).join("")+'</div></div></header>'+
+    '<div class="page"><div class="wrap">'+inner+'</div></div>'+
+    '<div class="foot">© 2026 A² Learning Studio · Dr. Ali Keyvanfar &amp; Dr. Arezou Shafaghat · Kennesaw State University · For educational use only.</div>'}
+function cover(){const resume=(S.step>0||S.name);
+  app.innerHTML='<section class="cover"><div class="wrap"><div class="bar"></div>'+
+    '<div class="kicker" style="color:var(--amber)">CM 3400 / CM 6600 · COURSE PROJECT · PART 6 — NARRATE</div>'+
+    '<h1>Project Risk &amp; Safety Narrative</h1>'+
+    '<div class="sub">The final part of your project — and a capstone simulator. Turn the register you built in Parts 1–5 into the exact Risk &amp; Safety Narrative your Senior Capstone (CM 4900, Tab 5) will demand.</div>'+
+    '<div class="namebox"><label>Your name</label><input type="text" id="nm" placeholder="Last name, First name" value="'+esc(S.name)+'">'+
+      '<label style="margin-top:10px">Your project</label><input type="text" id="pj" placeholder="Midtown Medical Office Building" value="'+esc(S.project||"")+'"></div>'+
+    '<button class="btn-amber" id="go">'+(resume?"Resume ▶":"Begin ▶")+'</button>'+
+    '<div class="how">Four steps: the objective → load your five biggest risks (your Part-5 file) → write the four moves → download your PDF and get scored by the <b>Narrative Assessor</b> (up to 3 attempts, automatic Score Sheet). You submit BOTH PDFs to D2L. Work saves in this browser automatically.</div>'+
+  '</div></section>';
+  document.getElementById("go").onclick=function(){const nm=document.getElementById("nm").value.trim();if(!nm){document.getElementById("nm").focus();return}
+    S.name=nm;S.project=document.getElementById("pj").value.trim()||"Midtown Medical Office Building";S.started=true;save();render()}}
+function pgObjective(){shell(0,'<div class="card"><div class="kicker">Step 1 · why part 6 exists</div>'+
+    '<h2>The objective — a capstone simulation</h2>'+
+    '<p class="mut">In your <b>Senior Capstone (CM 4900)</b>, <b>Tab 5 — Site Logistics, Safety &amp; Project Risk (SLO 3, 7)</b> requires a <b>Risk &amp; Safety Narrative</b> plus a <b>register of your five most significant risks</b>. Part 6 simulates that now, using the register YOU built in Parts 1–5 — same skill, same criteria, a year early. This page is yours to reuse for the real capstone.</p>'+
+    '<div class="crit"><div class="cl">The capstone brief you are meeting</div>'+
+      '<blockquote>“Provide a narrative discussion regarding high-risk features of work / liability issues to be managed during construction that may adversely impact the completion date and the project team’s plan to mitigate these risks.”</blockquote></div>'+
+    '<p class="mut">A strong narrative makes four moves:</p>'+
+    CRIT.map(function(c,i){return '<div style="margin:7px 0"><b>'+(i+1)+". "+esc(c[0])+'</b> <span class="mut">— '+esc(c[1])+'</span></div>'}).join("")+
+    '<h3>How you are graded (6 points)</h3>'+
+    '<p class="mut">Your grade comes from the <b>Narrative Assessor</b> — a ChatGPT coach built for this course that scores with EXACTLY this rubric, gives you a full learning guide, and automatically issues a <b>Score Sheet PDF</b> with a verification code. You get <b>3 scored attempts</b>; your best counts. Step 4 hands you to it.</p>'+
+    '<div class="rub">'+'<div class="rr"><div class="rc">Criterion</div><div class="rp">Pts</div></div>'+RUBRIC.map(function(x){return '<div class="rr"><div class="rc">'+esc(x[0])+'</div><div class="rp">'+x[1]+'</div></div>'}).join("")+'</div>'+
+    '<div class="nav"><span></span><button class="btn-primary" id="next">Load my risks ▶</button></div></div>');
+  document.getElementById("next").onclick=function(){S.step=1;save();render()}}
+function pgRisks(){shell(1,'<div class="card"><div class="kicker">Step 2 · your five most significant risks</div>'+
+    '<h2>Load or enter your five risks</h2>'+
+    '<div class="seg">'+
+      '<button data-ctx="mob" class="'+(S.ctx==="mob"?"on":"")+'"><span class="t">Midtown MOB (course project)</span><span class="s">Upload the .json / .csv you downloaded at Part 5</span></button>'+
+      '<button data-ctx="own" class="'+(S.ctx==="own"?"on":"")+'"><span class="t">My own project (Capstone / other)</span><span class="s">Type your risks and set Probability × Impact</span></button>'+
+    '</div>'+
+    '<div id="ctxbody"></div><div id="um"></div><div id="risks" style="margin-top:6px"></div>'+
+    '<div class="saved" id="saved"></div>'+
+    '<div class="nav"><button class="btn-ghost" id="back">◀ Back</button><button class="btn-primary" id="next" disabled>Write the narrative ▶</button></div></div>');
+  document.querySelectorAll('.seg button').forEach(function(b){b.onclick=function(){S.ctx=b.getAttribute("data-ctx");save();render()}});
+  const cb=document.getElementById("ctxbody");
+  if(S.ctx==="mob"){cb.innerHTML='<p class="mut">Upload the file that downloaded automatically when you submitted <b>Part 5</b> — the <b>RiskLog….json backup</b> or the <b>MyRiskLog….csv</b>. It fills your five highest-scored risks; edit anything after.</p>'+
+      '<div class="drop" id="drop"><div class="di">\u{1F4C1}</div><div class="dt">Drop your Part-5 file here, or click to choose</div><div class="ds">accepts RiskLog….json or MyRiskLog….csv</div><input type="file" id="file" accept=".json,.csv,application/json,text/csv" style="display:none"></div>';
+    const drop=document.getElementById("drop"),file=document.getElementById("file");
+    drop.onclick=function(){file.click()};file.onchange=function(e){if(e.target.files[0])handleFile(e.target.files[0])};
+    drop.ondragover=function(e){e.preventDefault();drop.classList.add("over")};drop.ondragleave=function(){drop.classList.remove("over")};
+    drop.ondrop=function(e){e.preventDefault();drop.classList.remove("over");if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0])};
+  }else if(S.ctx==="own"){cb.innerHTML='<p class="mut">Type your five most significant risks for <b>'+esc(S.project||"your project")+'</b>. Set each risk’s <b>Probability</b> and <b>Impact</b> (1–5) — this page scores and bands it with the same weighting as the course Risk Log, so a keyed-in register is graded identically.</p>';
+  }else{cb.innerHTML='<p class="mut">Choose how you’ll bring your five risks.</p>'}
+  const um=document.getElementById("um");if(S.uploadMsg)um.innerHTML='<div class="upmsg '+(S.uploadMsg.ok?"ok":"no")+'">'+esc(S.uploadMsg.txt)+'</div>';
+  const host=document.getElementById("risks");
+  if(!S.ctx){document.getElementById("next").disabled=true;
+    document.getElementById("back").onclick=function(){S.step=0;save();render()};return}
+  const TF=[["id","Register ID","R-14"],["feature","Feature of work / category","the scope that carries it"]];
+  const AF=[["cause","Cause","already-true condition"],["event","Risk event","the uncertain event"],["cons","Consequence / impact","what it hits"],["resp","Response / mitigation","avoid / transfer / mitigate / accept + action"]];
+  function opts(v){var o='<option value="">–</option>';for(var k=1;k<=5;k++)o+='<option value="'+k+'"'+(String(v)===String(k)?" selected":"")+'>'+k+'</option>';return o}
+  for(let i=0;i<5;i++){const r=S.risks[i]||newRisk();const d=document.createElement("div");d.className="risk";
+    d.innerHTML='<div class="rh"><span class="rn">'+(i+1)+'</span><b>Significant risk '+(i+1)+'</b>'+
+        '<span class="band '+(r.band?"b-"+esc(r.band):"")+'" data-band="'+i+'" style="'+(r.band?"":"display:none")+'">'+esc(r.band||"")+'</span></div>'+
+      '<div class="grid2">'+TF.map(function(f){return '<div class="fld"><label>'+esc(f[1])+' <span class="hint">'+esc(f[2])+'</span></label><input type="text" data-i="'+i+'" data-k="'+f[0]+'" value="'+esc(r[f[0]]||"")+'"></div>'}).join("")+'</div>'+
+      AF.map(function(f){return '<div class="fld"><label>'+esc(f[1])+' <span class="hint">'+esc(f[2])+'</span></label><textarea rows="2" data-i="'+i+'" data-k="'+f[0]+'">'+esc(r[f[0]]||"")+'</textarea></div>'}).join("")+
+      '<div class="pirow"><div class="fld" style="margin:0"><label>Probability (1–5)</label><select data-i="'+i+'" data-k="P">'+opts(r.P)+'</select></div>'+
+        '<div class="fld" style="margin:0"><label>Impact (1–5)</label><select data-i="'+i+'" data-k="I">'+opts(r.I)+'</select></div>'+
+        '<div class="sc" data-sc="'+i+'">'+(r.score?("Score = "+r.score+(r.P&&r.I?" ("+r.P+"×"+r.I+")":"")+" → "+r.band):"Score = P × I")+'</div></div>';
+    host.appendChild(d)}
+  function refresh(){const ok=S.risks.filter(function(r){return r&&(r.feature||"").trim()&&(r.cons||"").trim()}).length>=3;document.getElementById("next").disabled=!ok}
+  host.addEventListener("input",function(e){const t=e.target,i=+t.getAttribute("data-i"),k=t.getAttribute("data-k");if(k==null||isNaN(i))return;S.risks[i]=S.risks[i]||newRisk();S.risks[i][k]=t.value;
+    if(k==="P"||k==="I"){computeRow(S.risks[i]);const r=S.risks[i];const sc=host.querySelector('[data-sc="'+i+'"]');if(sc)sc.textContent=r.score?("Score = "+r.score+" ("+r.P+"×"+r.I+") → "+r.band):"Score = P × I";
+      const bd=host.querySelector('[data-band="'+i+'"]');if(bd){bd.textContent=r.band||"";bd.className="band "+(r.band?"b-"+r.band:"");bd.style.display=r.band?"":"none"}}
+    save(true);refresh()});
+  refresh();
+  document.getElementById("back").onclick=function(){S.step=0;save();render()};
+  document.getElementById("next").onclick=function(){S.step=2;save();render()}}
+function pgDraft(){shell(2,'<div class="two"><div>'+
+    '<div class="card"><div class="kicker">Step 3 · the four moves</div><h2>Write your narrative</h2>'+
+      '<p class="mut">Four boxes, four moves. A worked example sits under each — match its depth, in your own words, grounded in YOUR five risks. The Assessor will check that every claim traces back to your register.</p>'+
+      '<div id="narr"></div><div class="saved" id="saved"></div>'+
+      '<div class="nav"><button class="btn-ghost" id="back">◀ Back</button><button class="btn-primary" id="next">Finish — PDF &amp; scoring ▶</button></div></div></div>'+
+    '<div><div class="card"><div class="kicker">The rubric (the Assessor scores with exactly this)</div><div class="rub" id="rub"></div>'+
+      '<div class="note">Tips that earn points: name real scopes, name the policy or bond that answers each risk, put numbers on the schedule impact (days, float, LDs), and pair every response type with a concrete action. Generic sentences that fit any project earn nothing.</div></div></div></div>');
+  const host=document.getElementById("narr");
+  const NF=[["feat","Opening — the high-risk features of work"],["liab","Liability &amp; insurance"],["impact","Impact on the completion date"],["mit","The mitigation plan"]];
+  NF.forEach(function(f){const v=S.narr[f[0]]||"";const d=document.createElement("div");d.className="fld";
+    d.innerHTML='<h3>'+f[1]+'</h3><textarea rows="5" data-k="'+f[0]+'">'+esc(v)+'</textarea><div class="count" id="c-'+f[0]+'"></div>'+
+      '<details class="ex" style="margin-top:2px"><summary style="cursor:pointer;font-weight:700;color:#1f5a44">▸ Show a worked example (MOB — match its depth on your project)</summary><div style="margin-top:6px">'+esc(EXAMPLE[f[0]])+'</div></details>';
+    host.appendChild(d)});
+  const rub=document.getElementById("rub");rub.innerHTML='<div class="rr"><div class="rc">Criterion</div><div class="rp">Pts</div></div>'+RUBRIC.map(function(x){return '<div class="rr"><div class="rc">'+esc(x[0])+'</div><div class="rp">'+x[1]+'</div></div>'}).join("");
+  function counts(){NF.forEach(function(f){var e=document.getElementById("c-"+f[0]);if(e)e.textContent=wc(S.narr[f[0]])+" words"})}
+  host.addEventListener("input",function(e){const k=e.target.getAttribute("data-k");if(!k)return;S.narr[k]=e.target.value;save(true);counts()});
+  counts();
+  document.getElementById("back").onclick=function(){S.step=1;save();render()};
+  document.getElementById("next").onclick=function(){S.step=3;save();render()}}
+function pgFinish(){shell(3,
+    '<div class="card"><div class="kicker">Step 4a · your narrative PDF</div><h2>Download your narrative</h2>'+
+    '<p class="mut">This produces your <b>Part-6 narrative PDF</b> — your four moves plus your five-risk register as a table, with your name and date. It is the file the Assessor scores AND one of the two files you submit to D2L.</p>'+
+    '<div class="actions"><button class="btn-amber" id="dl">\u{1F4C4} Download my narrative PDF</button><button class="btn-ghost" id="back">◀ Back to editing</button></div>'+
+    '<div class="note" id="note" style="display:none"></div></div>'+
+    '<div class="gpt"><div class="kicker" style="color:#5B44A6">Step 4b · get scored (this is your grade)</div>'+
+    '<h3>Take your PDF to the Narrative Assessor</h3>'+
+    '<div class="qrbox"><img alt="QR code to the Narrative Assessor" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2AQMAAADf3OiLAAAABlBMVEUTJDv///8z8BmMAAAB3UlEQVR42u1ZQY4DIQyLlgfwpHydJ/EAJBbbYSrtobdVZamjOVC4eILjOGnst8+K7/k/n884T9sjItvEYvWxZ2I3cv3E++fT5wd/nu9o94Ma3hGdO9MDPyOfQNsP6LGJHHfhhD8Qc2KOPnALZvjz0ObkwiH/CjLKB7/QLv0kf5YT/6k/M/+8NvqjB8opzmARpBAuwoP/kP2GagDY2O2bmxb4A7ApmKR9FTJlgUn+IvhB5YEKbS6oSxbxZ+TpGfqW+J991LLpkb8U/5LQplzm6xJ/lq3SfFaB8hIm/GeoQf4o2wYLupUaNvqjtEXMYT6x0C0Y8F9uDclbuTCl/+mh/+Q8swCFjCwa7bkOj/xN5ey1nUxhFjIT/sdSIdMVoArgQ1z0f5f+JL0o+S9H6sT/pHiieVflNeK/claNQCG/1shCPyk7ecUf+g/kwdeCP8hWhZ3+vw81Xy7zH1UuqBCRw4vSRZj0L7lUakmY6h/pf5ZL/MtF0Lbd4WHz6b+qbaQFbY+LcOl/a/6g4eHW/Eq1zEX/H7bQc45W88+0mr9lCVENQo3in8/kvz3+30v/a1pCwaSXQAvg4j9f8Vf/xY6YU1yr/18U86NCLxZZzZ/v5IdXcKuYz/z5+//mZ85/AaYXQ4/fpJ38AAAAAElFTkSuQmCC">'+
+    '<div style="flex:1;min-width:260px"><ol>'+
+      '<li><b>Open the Narrative Assessor</b> — scan the QR with your phone to grab the link, but do the work on your computer: <a href="'+GPT_URL+'" target="_blank" rel="noopener" style="color:#5B44A6;font-weight:700">chatgpt.com → Narrative Assessor</a> (a free ChatGPT account works).</li>'+
+      '<li><b>Upload the PDF you just downloaded</b> and say: “Please score my narrative.”</li>'+
+      '<li>It scores you on the exact rubric above and <b>automatically gives you a Score Sheet PDF</b> — with a full learning guide (what’s working, what to improve, per criterion) and a <b>verification code</b>.</li>'+
+      '<li><b>Revise and re-upload up to 3 times.</b> Each attempt gets a fresh Score Sheet; your best score counts.</li>'+
+      '<li>When you’re happy: <b>submit BOTH PDFs to the D2L Part-6 assignment</b> — (1) this narrative PDF and (2) your latest Score Sheet.</li>'+
+    '</ol></div></div>'+
+    '<div class="warn"><b>Academic integrity:</b> the Assessor coaches — it will not write your narrative, and your instructor validates every Score Sheet’s verification code. An altered or missing code means the score cannot be credited. Use your own words; the skill is the point — you will need it again in CM 4900.</div></div>');
+  document.getElementById("back").onclick=function(){S.step=2;save();render()};
+  document.getElementById("dl").onclick=function(){makePDF(this)}}
+function nowStr(){try{return new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"})}catch(e){return ""}}
+async function makePDF(btn){if(!window.jspdf){alert("PDF tool not loaded — check your connection and reload.");return}
+  var old=btn.innerHTML;btn.disabled=true;btn.textContent="Generating…";
+  try{var jsPDF=window.jspdf.jsPDF,doc=new jsPDF({unit:"pt",format:"letter",compress:true});
+    var W=612,H=792,M=54,cw=W-2*M,INK=[19,36,59],AMB=[185,131,29],GREY=[91,102,117],BODY=[34,38,43],LINE=[228,222,205];
+    var y=M;function tc(c){doc.setTextColor(c[0],c[1],c[2])}
+    function san(s){return String(s==null?"":s).replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/→/g," -> ").replace(/×/g,"x").replace(/[–—]/g,"-").replace(/[^\x00-\x7F]/g,"")}
+    function foot(){doc.setFont("helvetica","normal");doc.setFontSize(8);tc(GREY);doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.line(M,H-40,W-M,H-40);doc.text("A2 Learning Studio - CM 3400/6600 - Course Project Part 6 - Risk & Safety Narrative",M,H-28);doc.text(String(doc.internal.getNumberOfPages()),W-M,H-28,{align:"right"})}
+    function np(){foot();doc.addPage();y=M}function ensure(h){if(y+h>H-52)np()}
+    function kick(t){ensure(16);doc.setFont("helvetica","bold");doc.setFontSize(9);tc(AMB);doc.text(san(t).toUpperCase(),M,y);y+=13}
+    function para(t,fs,lh){doc.setFont("helvetica","normal");doc.setFontSize(fs);tc(BODY);doc.splitTextToSize(san(t),cw).forEach(function(l){ensure(lh);doc.text(l,M,y);y+=lh})}
+    doc.setFillColor(INK[0],INK[1],INK[2]);doc.rect(0,0,W,124,"F");doc.setFillColor(AMB[0],AMB[1],AMB[2]);doc.rect(M,44,42,5,"F");
+    doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(224,161,44);doc.text("CM 3400 / CM 6600  -  COURSE PROJECT  -  PART 6: NARRATE",M,38);
+    doc.setFont("times","bold");doc.setFontSize(21);doc.setTextColor(255,255,255);doc.text("Project Risk & Safety Narrative",M,74);
+    doc.setFont("times","italic");doc.setFontSize(11);doc.setTextColor(205,214,228);doc.text(san((S.project||"Project")+"  -  Capstone Tab 5 (Site Logistics, Safety & Project Risk)"),M,96);
+    y=148;doc.setFont("helvetica","normal");doc.setFontSize(11);tc(BODY);
+    doc.text("Student:  "+san(S.name||""),M,y);y+=17;doc.text("Date:  "+san(nowStr()),M,y);y+=24;
+    [["Opening - high-risk features of work","feat"],["Liability & insurance","liab"],["Impact on the completion date","impact"],["The mitigation plan","mit"]].forEach(function(f){kick(f[0]);para(S.narr[f[1]]||"(left blank)",10.5,14);y+=8});
+    np();kick("Five most significant risks - risk register");y+=4;
+    var rs=regRows();var cols=[["#",18],["ID",42],["Feature / risk",96],["Cause -> Event -> Consequence",168],["Score",44],["Band",50],["Response",86]];
+    var xs=[M];for(var ci=0;ci<cols.length;ci++)xs.push(xs[ci]+cols[ci][1]);
+    function cellLines(txt,w){return doc.splitTextToSize(san(txt),w-10)}
+    doc.setFont("helvetica","normal");doc.setFontSize(8.5);
+    var rowsData=rs.map(function(r,i){var sc=r.score?(r.score+(r.P&&r.I?" ("+r.P+"x"+r.I+")":"")):"-";
+      return [String(i+1),r.id||"-",r.feature||"-",[r.cause,r.event,r.cons].filter(Boolean).join(" -> ")||"-",sc,r.band||"-",r.resp||"-"]});
+    var maxLines=1;rowsData.forEach(function(rd){rd.forEach(function(cell,ci){var n=cellLines(cell,cols[ci][1]).length;if(n>maxLines)maxLines=n})});
+    var rowH=maxLines*10+8;
+    doc.setFillColor(INK[0],INK[1],INK[2]);doc.rect(M,y,cw,18,"F");doc.setFont("helvetica","bold");doc.setFontSize(8.5);doc.setTextColor(255,255,255);
+    cols.forEach(function(c,ci){doc.text(san(c[0]),xs[ci]+5,y+12)});y+=18;
+    rowsData.forEach(function(rd,ri){ensure(rowH);if(ri%2===1){doc.setFillColor(250,247,240);doc.rect(M,y,cw,rowH,"F")}
+      doc.setFont("helvetica","normal");doc.setFontSize(8.5);tc(BODY);
+      rd.forEach(function(cell,ci){var lines=cellLines(cell,cols[ci][1]);var cx=(ci===0||ci===4||ci===5)?xs[ci]+cols[ci][1]/2:xs[ci]+5;var al=(ci===0||ci===4||ci===5)?"center":"left";
+        for(var li=0;li<lines.length;li++)doc.text(lines[li],cx,y+12+li*10,{align:al})});
+      doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.line(M,y+rowH,W-M,y+rowH);y+=rowH});
+    foot();doc.save("Part6_Narrative_"+(S.name||"student").replace(/[^a-z0-9]+/gi,"_")+".pdf");
+    var n=document.getElementById("note");if(n){n.style.display="block";n.textContent="Downloaded ✓  Now take it to the Narrative Assessor below — then submit BOTH PDFs to D2L."}
+  }catch(e){alert("Could not build PDF: "+e.message)}
+  btn.disabled=false;btn.innerHTML=old}
+render();
+</script></body></html>
