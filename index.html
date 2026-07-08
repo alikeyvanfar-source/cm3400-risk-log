@@ -786,12 +786,12 @@ function p6ctlTable(rid){var rows=(typeof rowsFor==='function')?rowsFor(rid):[],
   var h='<div style="overflow-x:auto;margin-top:4px"><table style="border-collapse:collapse;width:100%;min-width:1080px">';
   h+='<tr><th style="'+th+'">Type</th><th style="'+th+'">Cause / effect</th><th style="'+th+';text-align:center">Assessment → Agg</th><th style="'+th+'">Response action (Part 4)</th>'+CTL_STAGES.map(function(sg){return '<th style="'+th+';text-align:center">'+esc(sg)+'</th>';}).join('')+'</tr>';
   var firstC=true,firstE=true;
-  rows.forEach(function(r){if(!r.val)return;
+  rows.forEach(function(r){
     if(r.kind==='c'&&firstC){firstC=false;h+='<tr><td colspan="'+NC+'" style="background:#FBF7EC;color:#1f5a44;font-weight:800;font-size:11px;padding:3px 9px;border:1px solid #e2ddcf">Control the causes</td></tr>';}
     if(r.kind==='e'&&firstE){firstE=false;h+='<tr><td colspan="'+NC+'" style="background:#FBF7EC;color:#8a3b23;font-weight:800;font-size:11px;padding:3px 9px;border:1px solid #e2ddcf">Control the effects</td></tr>';}
     var v=rsp[r.k]||{},eo=(typeof ctlEff==='function')?ctlEff(rid,r.k):null,arr=rt[r.k]||[],ag=(typeof aggOf==='function')?aggOf(arr):0;
     h+='<tr><td style="'+td+';font-size:9px;color:#6c7682;white-space:nowrap">'+esc((r.label||'').replace(' →',''))+'</td>';
-    h+='<td style="'+td+';font-weight:500">'+esc(r.val)+'</td>';
+    h+='<td style="'+td+';font-weight:500">'+esc(r.val||'—')+'</td>';
     h+='<td style="'+td+';text-align:center;white-space:nowrap">'+[0,1,2,3].map(function(i){return '<span style="display:inline-block;width:15px;font-size:9px;color:#666;border:1px solid #ece7da;background:#f4f5f7">'+(arr[i]||'·')+'</span>';}).join('')+' <b style="color:#13243B">'+(ag||'—')+'</b></td>';
     h+='<td style="'+td+';font-size:10px;color:'+(v.a?'#23262B':'#9aa3ae')+'">'+esc(v.a||'—')+'</td>';
     for(var i=0;i<CTL_STAGES.length;i++){var st=eo?eo.eff[i]:'',cls=st?(CCLS[st]||''):'';
@@ -807,6 +807,25 @@ function p6Detail(rid){var f=p6full(rid);
   h+=p6ctlTable(rid);
   h+='</div>';return h;}
 function p6toggle(rid){var d=document.getElementById('p6det-'+rid),cx=document.getElementById('p6cx-'+rid);if(!d)return;var open=d.style.display==='none';d.style.display=open?'':'none';if(cx)cx.textContent=open?'▾':'▸';}
+function p6openRegModal(){var rows=p6rows();var body='';
+  rows.forEach(function(r){var f=p6full(r.rid);
+    body+='<div style="margin:0 0 20px">'+
+      '<div style="background:#13243B;color:#fff;padding:9px 13px;border-radius:9px 9px 0 0;font-size:13px;font-weight:700">'+r.rid+'  ·  '+esc(f.cat||'—')+'  ·  '+esc(f.band||'—')+(f.S?('  ·  Score '+f.S+' (P'+f.P+'×I'+f.I+')'):'')+'</div>'+
+      '<div style="border:1px solid #E4DECF;border-top:0;border-radius:0 0 9px 9px;padding:11px 13px;background:#fff">'+
+        '<div style="font-size:12.5px;color:#3a4250;line-height:1.6;margin-bottom:9px"><b>Risk:</b> '+esc(f.cec||'—')+'<br><b>Owner:</b> '+esc(f.owner||'—')+'  ·  <b>Trigger:</b> '+esc(f.trigger||'—')+'  ·  <b>Overall residual:</b> '+esc(f.residual)+'</div>'+
+        p6ctlTable(r.rid)+'</div></div>';});
+  var m=document.createElement('div');m.id='p6regmodal';
+  m.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,18,30,.66);display:flex;align-items:flex-start;justify-content:center;padding:22px;overflow:auto';
+  m.innerHTML='<div style="background:#F4F1EA;border-radius:14px;max-width:1440px;width:97vw;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.45)">'+
+    '<div style="background:#13243B;color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-radius:14px 14px 0 0">'+
+      '<div style="font-family:Georgia,serif;font-size:17px">Risk Register — Midtown MOB <span style="font-size:12px;color:#aebccb">· full detail, Parts 1–5 · '+esc(p6ident()||'')+'</span></div>'+
+      '<button onclick="p6closeRegModal()" style="background:#E0A12C;color:#13243B;border:0;border-radius:8px;font-weight:800;padding:7px 15px;cursor:pointer">✕ Close</button></div>'+
+    '<div style="padding:16px 18px;overflow:auto">'+body+'</div></div>';
+  m.addEventListener('click',function(e){if(e.target===m)p6closeRegModal();});
+  document.addEventListener('keydown',p6modalEsc);
+  document.body.appendChild(m);document.body.style.overflow='hidden';}
+function p6modalEsc(e){if(e.key==='Escape')p6closeRegModal();}
+function p6closeRegModal(){var m=document.getElementById('p6regmodal');if(m)m.remove();document.body.style.overflow='';document.removeEventListener('keydown',p6modalEsc);}
 function renderNarrate(){
   const fw=document.getElementById('frozenwrap');if(fw)fw.style.display='none';
   const th=document.querySelector('#reg thead');if(th)th.remove();
@@ -823,7 +842,7 @@ function renderNarrate(){
   h+='<div style="'+card+'"><div style="'+kick+'">The rubric — the Narrative Assessor scores with exactly this (100 → 6 pts)</div>'+
      '<table style="border-collapse:collapse;width:100%;font-size:12.5px">'+P6_RUBRIC.map(function(r,i){return '<tr><td style="border:1px solid #E4DECF;padding:6px 9px">'+(i+1)+'. '+r[0]+'</td><td style="border:1px solid #E4DECF;padding:6px 9px;text-align:center;font-weight:800;color:#1C3252;width:46px">'+r[1]+'</td></tr>';}).join('')+'</table>'+
      '<div style="font-size:12px;color:#5B6675;margin-top:8px">Criteria 5 & 6 come from the register + your writing: your five risks are already <b>scored and banded</b> from Parts 1–5 (criterion 5), and criterion 6 rewards <b>professional length and specificity</b> — real numbers, durations, and named parties throughout. Each of the four moves below shows its own <b>0–20 scoring scale</b> so you can see exactly what earns full marks.</div></div>';
-  h+='<div style="'+card+'"><div style="'+kick+'">Your register — everything from Parts 1–5 · <b>click any row</b> to open its full detail (revise an earlier part and it updates here)</div>'+p6RegTable()+
+  h+='<div style="'+card+'"><div style="'+kick+'">Your register — everything from Parts 1–5 · <b>click any row</b> to open its full detail (revise an earlier part and it updates here)</div>'+'<div style="margin:9px 0 12px"><button class="btn" style="background:#13243B;color:#fff;font-weight:700;font-size:12.5px;padding:8px 15px" onclick="p6openRegModal()">\u2922 Open the full risk register in a window</button> <span style="font-size:12px;color:#8a93a0">\u2014 all five risks, every control stage, room to read every cell.</span></div>'+p6RegTable()+
      '<div style="font-size:12px;color:#5B6675;margin-top:8px;background:#F1F5F3;border:1px solid #cfe3db;border-radius:7px;padding:8px 11px">Use this table as you write: <b>Feature</b> + the <b>Cause → Event → Consequence</b> feed move 1 · the <b>Owner</b> (who bears it) feeds move 2 · the <b>Score / Band / Consequence</b> feed move 3 · the <b>Response</b> and <b>Residual</b> feed move 4. And whenever you write about a specific risk, cite its ID in parentheses \u2014 e.g. the shoring risk (R16) \u2014 so it traces straight to the row above.</div></div>';
   h+='<div style="'+card+'"><div style="'+kick+'">Write the four moves — every claim should trace to a register row above</div>'+
      '<div style="font-size:12.5px;color:#5B6675;margin-bottom:10px">Submitting as <b>'+esc(p6ident()||'—')+'</b> — the same team-member ID you set at Part 1. It goes on your PDF and the Assessor’s Score Sheet automatically; no need to type your name.</div>'+'<div style="background:#FBF2DF;border:1px solid #ecd9a8;border-radius:8px;padding:10px 13px;margin:0 0 12px;font-size:13px;color:#5b4a1c"><b>Cite your register codes.</b> Every time you name a specific risk, put its ID in parentheses \u2014 for example, the tower crane <b>(R1)</b> or the switchgear delay <b>(R2)</b>. It ties every claim straight back to a row in the register above, which is exactly the traceability the Assessor checks.</div>'+
@@ -919,7 +938,7 @@ function downloadPart6PDF(btn){if(!(window.jspdf&&window.jspdf.jsPDF)){alert('PD
     doc.setFont('helvetica','normal');tc(BODY);var rls=doc.splitTextToSize(san(f.cec||'-'),cw-(rlx-M)-6);ensure(rls.length*11);doc.text(rls[0]||'-',rlx,y);for(var q=1;q<rls.length;q++){y+=11;ensure(11);doc.text(rls[q],M+4,y);}y+=13;
     if((f.owner&&f.owner!=='-')||(f.trigger&&f.trigger!=='-')){doc.setFont('helvetica','bold');tc(INK);var ol='Owner / Trigger:  ';doc.text(ol,M+4,y);var olx=M+4+doc.getTextWidth(ol);doc.setFont('helvetica','normal');tc(BODY);doc.text(san((f.owner||'-')+'   |   '+(f.trigger||'-')),olx,y);y+=13;}
     // control table
-    var crows=(typeof rowsFor==='function')?rowsFor(r.rid).filter(function(x){return x.val;}):[];
+    var crows=(typeof rowsFor==='function')?rowsFor(r.rid):[];
     var rspM=(typeof rspOf==='function')?rspOf(r.rid):{};
     if(crows.length){
       var lw=126,rw=100,sw=(cw-lw-rw)/6, stAb=['Pre-Contract','Pre-Con','Substr.','Superstr.','Fit-out','Warranty'];
@@ -927,7 +946,7 @@ function downloadPart6PDF(btn){if(!(window.jspdf&&window.jspdf.jsPDF)){alert('PD
       doc.text('Cause / effect',M+3,y+8.5);doc.text('Response action',M+lw+3,y+8.5);
       for(var st1=0;st1<6;st1++)doc.text(stAb[st1],M+lw+rw+st1*sw+sw/2,y+8.5,{align:'center'});y+=13;
       crows.forEach(function(x){var eo=(typeof ctlEff==='function')?ctlEff(r.rid,x.k):null,a=(rspM[x.k]||{}).a||'';
-        var lbl=doc.splitTextToSize(san(x.val),lw-5),act=doc.splitTextToSize(san(a||'-'),rw-5);
+        var lbl=doc.splitTextToSize(san(x.val||'-'),lw-5),act=doc.splitTextToSize(san(a||'-'),rw-5);
         var rh=Math.max(lbl.length,act.length,1)*8+5;ensure(rh);
         for(var st2=0;st2<6;st2++){var lvl=eo?eo.eff[st2]:'',rgb=STG_RGB[lvl]||[255,255,255],cx2=M+lw+rw+st2*sw;
           doc.setFillColor(rgb[0],rgb[1],rgb[2]);doc.rect(cx2,y,sw,rh,'F');doc.setDrawColor(226,221,207);doc.rect(cx2,y,sw,rh,'S');
