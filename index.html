@@ -719,6 +719,28 @@ const P6_GPT='https://chatgpt.com/g/g-6a4dad32d908819187587b8c38626c41-narrative
 const P6_QR='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM0AAADNAQMAAAAhcmYqAAAABlBMVEUTJDv///8z8BmMAAACAUlEQVR42u1YMY6EQAwLR0E5T+An7MeQQOJj8JN5AiXFipzt2dVV252S4o4CsVBgEttx1vzTcdlffLSb2XCbjcNuS72m8hxxx8bryz4ev/7I/ACaoYE6Fwegnj+f4TBOFOLgex/u1YkAdZlTYOysAV9uky2eBuM4l+p72erVsUcZMPTesuK6qClbCjeklOOcx59ThlJ07C9G2ODoUdNyODfoG4uLFrjT87REwwAtRmCZ7XqAp9bhSgSJp2hFK3qIhHK5gWqgesIpikLIwh/AQm6gLvFKcerD2RQyQqhA1vhqlCc/X24B8+iarYdzg59vE+0LFHVwY4NSSrx9USk3DJQ1qKZCdPHcoGVAGr03lnDIQbXhvkFGkCCwcHYGE7aqM/EUHUVMVqOJxO8MpazQKrDI1mGlTB7xFMVQl1JGzlpyQwM3hxuk6HAz9tBAc7hBYsLD5BacKZbhG6CjwSjw+ZP19A0g6HyN5wZ8nGO25Y2JN7v4CducCwS5iACzFj/u+NhzoAGcamjFqRDI9FXWhAVBjl5pGbVlwpT0tWllrMgb88vRE7KoDmIhWatEwsXJM/YUdoFztWpT0rKSsbVxlaZlMPvMKdV4rdIsRMsbWb6hVVpWqryBeJ4wYd/VUPoiVRB7/Mz5t4eCBUG2d2dKzka/txVF+3TzsJSN/v8PST36BgSvDh+7Q5cpAAAAAElFTkSuQmCC';
 const P6_RUBRIC=[['High-risk features of work — named & specific',20],['Liability & insurance / bonds discussed',20],['Impact on the completion date explained',20],['Mitigation plan — responses + control actions',20],['Grounded in your five risks (each scored P×I & banded)',12],['Professional length & specificity',8]];
 const P6_F=[['feat','Opening — the high-risk features of work','Name the specific scopes that carry the most risk — from YOUR register.'],['liab','Liability & insurance','Who bears each risk and what answers it — bonds, builder’s risk, CGL, contract transfer.'],['impact','Impact on the completion date','Which activity slips, how many days, float vs. substantial completion, LD exposure.'],['mit','The mitigation plan','Each risk’s response type (avoid / transfer / mitigate / accept) + its concrete control action.']];
+const P6_MIN=100;   // ~half a page per move: 4 moves x ~half page = ~2 pages narrative + 1 page register
+const P6_EX={
+ feat:"The Midtown MOB is a six-story, fast-track project on a tight downtown corner, and three features of work carry most of the risk: a single shared tower crane every trade competes for, a long-lead electrical switchgear order sitting on the critical path, and a structural deck pour scheduled through the coldest weeks of winter.",
+ liab:"These risks are allocated deliberately. The switchgear delivery risk is transferred to the vendor through a liquidated-damages clause; the winter-pour workmanship risk is backed by the subcontractor's performance bond. Builder's risk insurance covers physical loss to the work in place, and the GC carries commercial general liability for third-party claims on the crowded corner site.",
+ impact:"If the switchgear slips three weeks it consumes all five days of float on electrical rough-in and pushes substantial completion, exposing $5,000/day in liquidated damages. A halted crane pick stalls steel erection the same way, because both sit on the critical path.",
+ mit:"The team mitigates the crane conflict with a locked daily lift schedule owned by the superintendent, transfers the switchgear delay by contract while holding a rental-generator fallback, and accepts the residual winter-weather risk with a heated-enclosure control action logged in the register and re-checked before every pour."
+};
+const P6_MOVES=[
+ {k:'feat',c:1,pts:20,title:'Opening — the high-risk features of work',
+  teach:"Name the two or three scopes on YOUR project that carry the most risk — not “safety” in general, but the specific activities. Look at your register above and take the highest-banded rows: those ARE your high-risk features. For each, say what the work is and why it is dangerous — a tight corner site, a single shared crane, a long-lead item on the critical path, a pour in the cold. The logic: a reader should finish this paragraph knowing exactly WHERE on your job the risk lives.",
+  full:"Full marks (20): specific scopes tied to place, sequence, and why they are high-risk — every one traceable to a register row above."},
+ {k:'liab',c:2,pts:20,title:'Liability & insurance',
+  teach:"Connect each of those risks to WHO carries the exposure and WHAT instrument answers it. The four tools: performance & payment bonds (guarantee the job finishes / that subs get paid), builder's risk (pays for physical damage to the work itself), CGL (pays for third-party injury or property damage), and contractual transfer (indemnity, subcontractor flow-down, additional-insured, liquidated damages — moving a risk to the party best able to control it). The logic: for each significant risk a claims adjuster should know which policy pays and who holds it. Never just “we'll be insured” — name the instrument.",
+  full:"Full marks (20): each risk matched to the correct instrument and the party who holds it, with the transfer mechanism named."},
+ {k:'impact',c:3,pts:20,title:'Impact on the completion date',
+  teach:"Show how a risk, if it fires, moves your finish date — the mechanism matters. Which activity slips, by how many days, and does that eat your float or push substantial completion? A delay only threatens the completion date if it hits the critical path or uses up float, so trace at least one risk from cause → activity → milestone, and name the liquidated-damages exposure if your contract has it. The logic: a scheduler should see the chain from the risk to the missed date.",
+  full:"Full marks (20): at least one risk traced to a quantified schedule hit — activity, days, float vs. substantial completion, and LDs where they apply."},
+ {k:'mit',c:4,pts:20,title:'The mitigation plan',
+  teach:"Close with what the team DOES about each risk — two parts every time. First the response TYPE: avoid (eliminate the scope), transfer (insure / bond / subcontract), mitigate (cut the probability or the impact), or accept (carry it with a contingency and a trigger). Then a concrete control action — a real thing you do: a locked daily lift schedule, a heated enclosure, an added inspection hold point, a named owner. A type without an action is half a plan; an action with no named type isn't yet strategy. Match the effort to the risk's score.",
+  full:"Full marks (20): every significant risk gets a named response type PLUS a concrete control action and an owner."}
+];
+function p6ident(){return (slotLabel()||'')+(state.cls?'  ·  '+state.cls:'')+(state.sem?'  ·  '+state.sem+' '+(state.yr||''):'');}
 function p6o(){if(!state.p6||typeof state.p6!=='object')state.p6={};return state.p6;}
 function p6set(k,v){p6o()[k]=v;}
 function p6wc(t){return (t||'').trim()?t.trim().split(/\s+/).length:0;}
@@ -737,52 +759,66 @@ function p6RegTable(){const rows=p6rows();
 function renderNarrate(){
   const fw=document.getElementById('frozenwrap');if(fw)fw.style.display='none';
   const th=document.querySelector('#reg thead');if(th)th.remove();
-  document.getElementById('cg').innerHTML='<col>';
-  document.getElementById('reg').style.width='';
+  document.getElementById('cg').innerHTML='<col>';document.getElementById('reg').style.width='';
   const d=p6o();
   const card='background:#fff;border:1px solid #E4DECF;border-radius:12px;padding:16px 18px;margin:0 0 14px;color:#23262B';
   const kick='font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#B9831D;font-weight:800;margin-bottom:4px';
   let h='<div style="max-width:1080px;margin:0 auto;font-family:inherit">';
   h+='<div style="'+card+'"><div style="'+kick+'">PART 6 · NARRATE · OUTLINE #15 · MODULE 7 — worth 6 points, scored by the Narrative Assessor</div>'+
-     '<h2 style="font-family:Georgia,serif;margin:.1em 0 .3em;color:#13243B">Project Risk &amp; Safety Narrative — your capstone simulation</h2>'+
-     '<p style="margin:.3em 0;font-size:13.5px;color:#5B6675">Your Senior Capstone (CM 4900, Tab 5) requires a <b>Risk &amp; Safety Narrative</b> built on a register of your five most significant risks. You just built that register in Parts 1–5 — it is loaded below. Now write the narrative the brief demands:</p>'+
+     '<h2 style="font-family:Georgia,serif;margin:.1em 0 .3em;color:#13243B">Project Risk & Safety Narrative — your capstone simulation</h2>'+
+     '<p style="margin:.3em 0;font-size:13.5px;color:#5B6675">Your Senior Capstone (CM 4900, Tab 5) requires a <b>Risk & Safety Narrative</b> built on a register of your five most significant risks. You built that register in Parts 1–5 — it is loaded below. Now write the narrative the brief demands:</p>'+
      '<blockquote style="background:#FBF2DF;border-left:4px solid #E0A12C;border-radius:8px;padding:10px 14px;font-style:italic;color:#13243B;margin:8px 0">“Provide a narrative discussion regarding high-risk features of work / liability issues to be managed during construction that may adversely impact the completion date and the project team’s plan to mitigate these risks.”</blockquote>'+
-     '<div style="font-size:12.5px;color:#5B6675"><b style="color:#1C3252">The rubric the Assessor scores with:</b> '+P6_RUBRIC.map(r=>r[0]+' ('+r[1]+')').join(' · ')+' — total 100 → 6 pts.</div></div>';
-  h+='<div style="'+card+'"><div style="'+kick+'">Your register — from Parts 1–5 (it updates if you revise earlier parts)</div>'+p6RegTable()+'</div>';
+     '<div style="font-size:12.5px;color:#5B6675;background:#F1F5F3;border:1px solid #cfe3db;border-radius:8px;padding:9px 12px"><b style="color:#1f5a44">What you’re making:</b> a 3-page PDF — about <b>two pages of narrative</b> (roughly half a page for each of the four moves below) and <b>one page for your risk register</b>. Aim for about <b>120 words</b> in each box.</div></div>';
+  // full rubric
+  h+='<div style="'+card+'"><div style="'+kick+'">The rubric — the Narrative Assessor scores with exactly this (100 → 6 pts)</div>'+
+     '<table style="border-collapse:collapse;width:100%;font-size:12.5px">'+P6_RUBRIC.map(function(r,i){return '<tr><td style="border:1px solid #E4DECF;padding:6px 9px">'+(i+1)+'. '+r[0]+'</td><td style="border:1px solid #E4DECF;padding:6px 9px;text-align:center;font-weight:800;color:#1C3252;width:46px">'+r[1]+'</td></tr>';}).join('')+'</table>'+
+     '<div style="font-size:12px;color:#5B6675;margin-top:8px">Criteria 5 & 6 come from the register + your writing overall: your five risks are already <b>scored and banded</b> from Parts 1–5 (criterion 5), and criterion 6 rewards <b>professional length and specificity</b> — real numbers, durations, and named parties throughout.</div></div>';
+  // register
+  h+='<div style="'+card+'"><div style="'+kick+'">Your register — from Parts 1–5 (revise an earlier part and it updates here)</div>'+p6RegTable()+'</div>';
+  // writing
   h+='<div style="'+card+'"><div style="'+kick+'">Write the four moves — every claim should trace to a register row above</div>'+
-     '<div style="margin:6px 0 10px"><label style="font-size:12px;font-weight:700;color:#1C3252">Your full name (Last, First) — goes on the PDF and the Assessor’s Score Sheet</label>'+
-     '<input id="p6name" type="text" value="'+esc(d.name||'')+'" placeholder="Last name, First name" style="width:320px;max-width:100%;font:inherit;border:1.5px solid #E4DECF;border-radius:8px;padding:8px 10px;display:block;margin-top:3px" oninput="p6set(\'name\',this.value)" onchange="persist()"></div>'+
-     P6_F.map(f=>'<div style="margin:10px 0"><label style="font-size:13px;font-weight:700;color:#1C3252;display:block">'+f[1]+' <span style="font-weight:400;color:#5B6675;font-style:italic">— '+f[2]+'</span></label>'+
-       '<textarea id="p6-'+f[0]+'" rows="5" style="width:100%;font:inherit;line-height:1.5;border:1.5px solid #E4DECF;border-radius:8px;padding:9px 11px;margin-top:4px" oninput="p6set(\''+f[0]+'\',this.value);document.getElementById(\'p6c-'+f[0]+'\').textContent=p6wc(this.value)+\' words\'" onchange="persist()">'+esc(d[f[0]]||'')+'</textarea>'+
-       '<div id="p6c-'+f[0]+'" style="text-align:right;font-size:11px;color:#5B6675">'+p6wc(d[f[0]])+' words</div></div>').join('')+
+     '<div style="font-size:12.5px;color:#5B6675;margin-bottom:10px">Submitting as <b>'+esc(p6ident()||'—')+'</b> — the same team-member ID you set at Part 1. It goes on your PDF and the Assessor’s Score Sheet automatically; no need to type your name.</div>'+
+     P6_MOVES.map(function(m){var v=d[m.k]||'',n=p6wc(v),ok=n>=P6_MIN;
+       return '<div style="margin:14px 0;padding-top:12px;border-top:1px solid #efe9da">'+
+         '<div style="font-size:14px;font-weight:800;color:#13243B">'+m.title+' <span style="font-weight:700;color:#B9831D;font-size:12px">· Criterion '+m.c+' · '+m.pts+' pts</span></div>'+
+         '<div style="font-size:13px;color:#3a4250;line-height:1.55;margin:6px 0">'+m.teach+'</div>'+
+         '<div style="font-size:12px;color:#1f5a44;background:#EAF4F0;border:1px solid #bfe0d4;border-radius:7px;padding:7px 10px;margin:4px 0">'+m.full+'</div>'+
+         '<details style="margin:6px 0"><summary style="cursor:pointer;font-weight:700;color:#5B44A6;font-size:12.5px">▸ See a worked example (Midtown MOB — match its depth on your project)</summary>'+
+           '<div style="font-size:12.5px;color:#3a4250;background:#F4F1FA;border:1px solid #d9d0ec;border-radius:7px;padding:9px 11px;margin-top:5px">'+esc(P6_EX[m.k])+'</div></details>'+
+         '<textarea id="p6-'+m.k+'" rows="6" style="width:100%;font:inherit;line-height:1.5;border:1.5px solid #E4DECF;border-radius:8px;padding:9px 11px;margin-top:4px" oninput="p6set(\''+m.k+'\',this.value);p6meter(\''+m.k+'\')" onchange="persist()">'+esc(v)+'</textarea>'+
+         '<div id="p6c-'+m.k+'" style="text-align:right;font-size:11.5px;font-weight:700;color:'+(ok?'#2E7D4F':'#5B6675')+'">'+(ok?'✓ ':'')+n+' words · aim for ~120 (about half a page)</div></div>';}).join('')+
      '<div id="p6warn" style="display:none;background:#FBEEEA;border:1px solid #e6c4b8;border-radius:8px;padding:10px 13px;color:#7a2f1c;font-size:13px;margin:8px 0"></div>'+
-     '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">'+
+     '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">'+
        '<button class="btn" style="background:#E0A12C;color:#13243B;font-weight:800" onclick="downloadPart6PDF(this)">📄 Download my narrative PDF</button>'+
        '<button class="btn finish" id="p6finish" onclick="finishPart6()">✓ Finish Part 6</button></div>'+
-     '<div id="p6done" style="display:none;background:#EAF4F0;border:1px solid #bfe0d4;border-radius:8px;padding:10px 13px;color:#1f4a3e;font-size:13px;margin-top:8px"><b>Part 6 finished ✓</b> — your backup and narrative PDF downloaded. Now get scored below, then submit BOTH PDFs to the D2L Part-6 assignment.</div></div>';
+     '<div id="p6done" style="display:none;background:#EAF4F0;border:1px solid #bfe0d4;border-radius:8px;padding:10px 13px;color:#1f4a3e;font-size:13px;margin-top:8px"><b>Part 6 finished ✓</b> — your backup and narrative PDF downloaded. Now get your score below.</div></div>';
+  // GPT handoff + the two-PDF submission spelled out
   h+='<div style="background:#F4F1FA;border:1px solid #d9d0ec;border-radius:12px;padding:16px 18px;margin:0 0 14px;color:#2b2440">'+
-     '<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B44A6;font-weight:800">Get scored — this is your grade (up to 3 attempts, best counts)</div>'+
+     '<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B44A6;font-weight:800">Get your score — this is your grade (up to 3 attempts, best counts)</div>'+
      '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:8px">'+
      '<img src="'+P6_QR+'" alt="QR to the Narrative Assessor" style="width:132px;height:132px;border:5px solid #fff;border-radius:10px;box-shadow:0 5px 15px rgba(19,36,59,.18)">'+
      '<ol style="flex:1;min-width:260px;margin:0;padding-left:18px;font-size:13.5px;line-height:1.6">'+
-     '<li>Open the <a href="'+P6_GPT+'" target="_blank" rel="noopener" style="color:#5B44A6;font-weight:700">Narrative Assessor</a> (scan the QR to grab it on your phone — but work on your computer; a free ChatGPT account works).</li>'+
-     '<li><b>Upload the PDF you just downloaded</b> and say: “Please score my narrative.”</li>'+
-     '<li>It scores the exact rubric above and <b>automatically gives you a Score Sheet PDF</b> — a learning guide per criterion plus a <b>verification code</b>.</li>'+
-     '<li>Revise here, re-download, re-upload — up to <b>3 scored attempts</b>.</li>'+
-     '<li><b>Submit BOTH PDFs</b> to the D2L Part-6 assignment: your narrative PDF + your latest Score Sheet. A missing or altered code = no credit.</li></ol></div>'+
-     '<div style="background:#FBF2DF;border:1px solid #ecd9a8;border-radius:8px;padding:9px 13px;color:#6b5312;font-size:12.5px;margin-top:8px"><b>Integrity:</b> the Assessor coaches — it will not write your narrative, and your instructor validates every Score Sheet’s code. Your own words; this exact skill returns in CM 4900.</div></div>';
+     '<li>Open the <a href="'+P6_GPT+'" target="_blank" rel="noopener" style="color:#5B44A6;font-weight:700">Narrative Assessor</a> (scan the QR to grab it on your phone — but do the work on your computer; a free ChatGPT account works).</li>'+
+     '<li><b>Upload your narrative PDF</b> (the one you downloaded above) and say: “Please score my narrative.”</li>'+
+     '<li>It scores the rubric, gives you a learning guide, and <b>automatically returns a Score Sheet PDF</b> with your score and a verification code.</li>'+
+     '<li>Not happy? Come back here, improve your writing, <b>re-download</b>, and upload again — up to <b>3 attempts</b>.</li></ol></div>'+
+     '<div style="background:#fff;border:1px solid #d9d0ec;border-radius:9px;padding:12px 14px;margin-top:12px;font-size:13.5px;color:#2b2440"><b style="color:#3d2d6b">Then submit TWO PDFs to the D2L Part-6 assignment — both in the same dropbox:</b>'+
+       '<div style="margin:7px 0 0 0;padding-left:2px"><div style="margin:4px 0"><b>1) Your narrative PDF</b> — the one you download from <b>this page</b>. Download it again after your final edits so you submit the <b>latest version</b>.</div>'+
+       '<div style="margin:4px 0"><b>2) Your Score Sheet PDF</b> — the report the <b>Narrative Assessor gives you in ChatGPT</b>, for the attempt whose score you’re happy with.</div></div></div>'+
+     '<div style="background:#FBF2DF;border:1px solid #ecd9a8;border-radius:8px;padding:9px 13px;color:#6b5312;font-size:12.5px;margin-top:8px"><b>Integrity:</b> the Assessor coaches — it will not write your narrative, and your instructor checks every Score Sheet’s verification code. A missing or altered code = no credit. Your own words; this exact skill returns in CM 4900.</div></div>';
   h+='</div>';
   document.getElementById('tbody').innerHTML='<tr><td colspan="1" style="background:#F4F1EA;padding:14px 10px">'+h+'</td></tr>';
 }
-function finishPart6(){const d=p6o();const short=P6_F.filter(f=>p6wc(d[f[0]])<25);const w=document.getElementById('p6warn');
-  if(!(d.name||'').trim()){w.style.display='block';w.innerHTML='<b>Add your full name first</b> — the Assessor’s verification code is built on it.';return;}
-  if(short.length){w.style.display='block';w.innerHTML='<b>Not quite ready:</b> '+short.map(f=>'“'+f[1]+'”')+' '+(short.length>1?'are':'is')+' under ~25 words — a scoreable move needs real substance. Look at your register: which rows haven’t made it into the prose yet?';return;}
+function p6meter(k){var m=P6_MOVES.find(function(x){return x.k===k;});if(!m)return;var n=p6wc((p6o()[k]||'')),ok=n>=P6_MIN;
+  var e=document.getElementById('p6c-'+k);if(e){e.textContent=(ok?'✓ ':'')+n+' words · aim for ~120 (about half a page)';e.style.color=ok?'#2E7D4F':'#5B6675';}}
+function finishPart6(){const d=p6o();const short=P6_MOVES.filter(function(m){return p6wc(d[m.k])<P6_MIN;});const w=document.getElementById('p6warn');
+  if(short.length){w.style.display='block';w.innerHTML='<b>Almost there — a scoreable narrative needs about half a page per move.</b> These are still under ~'+P6_MIN+' words: '+short.map(function(m){return '“'+m.title.replace(/ —.*/,'')+'”';}).join(', ')+'. Look at your register above — which rows haven’t made it into the prose yet?';return;}
   w.style.display='none';
   state.done=true;state.submitted=state.submitted||{};state.submitted[6]=true;persist();
   try{cloudSync('submit');}catch(e){}
   try{downloadJSON();}catch(e){}
-  setTimeout(()=>{try{downloadPart6PDF(null);}catch(e){}},700);
-  const ok=document.getElementById('p6done');if(ok)ok.style.display='block';
+  setTimeout(function(){try{downloadPart6PDF(null);}catch(e){}},700);
+  var ok=document.getElementById('p6done');if(ok)ok.style.display='block';
   renderRail();}
 function downloadPart6PDF(btn){if(!(window.jspdf&&window.jspdf.jsPDF)){alert('PDF engine not loaded — refresh the page and try again.');return;}
   persist();
@@ -800,7 +836,7 @@ function downloadPart6PDF(btn){if(!(window.jspdf&&window.jspdf.jsPDF)){alert('PD
   doc.setFont('times','bold');doc.setFontSize(21);doc.setTextColor(255,255,255);doc.text('Project Risk & Safety Narrative',M,74);
   doc.setFont('times','italic');doc.setFontSize(11);doc.setTextColor(205,214,228);doc.text('Midtown MOB  -  Capstone Tab 5 (Site Logistics, Safety & Project Risk)',M,96);
   y=148;doc.setFont('helvetica','normal');doc.setFontSize(11);tc(BODY);
-  doc.text('Student:  '+san(d.name||'')+'   ('+san(slotLabel()||'')+')',M,y);y+=17;
+  doc.text('Team member:  '+san(slotLabel()||''),M,y);y+=17;
   doc.text('Class:  '+san((state.cls||'')+'  -  '+(state.sem||'')+' '+(state.yr||'')),M,y);y+=17;
   doc.text('Date:  '+san(new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'})),M,y);y+=24;
   P6_F.forEach(f=>{kick(f[1]);para(d[f[0]]||'(left blank)',10.5,14);y+=8;});
@@ -820,7 +856,7 @@ function downloadPart6PDF(btn){if(!(window.jspdf&&window.jspdf.jsPDF)){alert('PD
       for(let li=0;li<ls.length;li++)doc.text(ls[li],ctr?xs[ci]+cols[ci][1]/2:xs[ci]+4,y+12+li*10,ctr?{align:'center'}:undefined);});
     doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.line(M,y+rowH,W-M,y+rowH);y+=rowH;});
   foot();
-  doc.save('Part6_Narrative_'+((d.name||slotLabel()||'student').replace(/[^a-z0-9]+/gi,'_'))+'.pdf');}
+  doc.save('Part6_Narrative_'+((slotLabel()||'student').replace(/[^a-z0-9]+/gi,'_'))+'.pdf');}
 /* ================= end PART 6 ================= */
 
 function renderWorkspace(){const _p=state.part||1;const _rb=document.getElementById('runbtn'),_fb=document.getElementById('finish');if(_rb)_rb.style.display=_p===6?'none':'';if(_fb)_fb.style.display=_p===6?'none':'';if(_p===6)renderNarrate();else if(_p>=2)renderCompound();else renderRows();}   // Parts 2+ share the merged register; netBox dispatches per part
