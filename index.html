@@ -325,6 +325,8 @@
   .doneov .card{max-width:460px;} .doneov .ck{font-size:60px;color:var(--goldb);} .doneov h2{font:700 26px Georgia,serif;margin:8px 0;}
   .p6listen{transition:all .15s}.p6listen.playing{background:#E0A12C!important;color:#fff!important;border-color:#E0A12C!important}
   .p6movehd:hover{background:#FBFAF6}
+  .p6movehd.p6open{background:#FBF8F1}
+  .p6movehd .vbtn{margin-top:0;flex:none}
   .lightbox{display:none;position:fixed;inset:0;background:rgba(10,16,28,.9);z-index:70;align-items:center;justify-content:center;padding:22px;}
   .lightbox img{max-width:96%;max-height:96%;border-radius:8px;}
   /* ---- onboarding screens: gate the workspace; identity is committed, not roamable ---- */
@@ -865,16 +867,16 @@ function renderNarrate(){
      P6_MOVES.map(function(m){var v=d[m.k]||'',n=p6wc(v),ok=n>=P6_MIN;var anch=P6_ANCHORS[m.k]||[];var open=(p6openMove===m.k);
        var cellCols=['#f6d6cf','#f7e6c6','#e7efbc','#cfe9cf'];
        var scale='<div style="display:flex;margin:6px 0;border-radius:8px;overflow:hidden;border:1px solid #E4DECF">'+anch.map(function(a,ai){return '<div style="flex:1;background:'+cellCols[ai]+';padding:7px 9px;font-size:10.5px;line-height:1.35;color:#2b2b2b'+(ai?';border-left:1px solid rgba(255,255,255,.7)':'')+'"><b style="font-size:13px;color:#13243B">'+a[0]+'</b> / 20<br>'+esc(a[1])+'</div>';}).join('')+'</div>';
-       return '<div class="p6move" style="border-top:1px solid #efe9da">'+
-         '<div class="p6movehd" id="p6hd-'+m.k+'" data-k="'+m.k+'" onclick="p6moveToggle(this.dataset.k)" style="cursor:pointer;display:flex;align-items:center;gap:8px;padding:12px 2px;user-select:none">'+
+       return '<div class="p6move" style="border:1px solid #E4DECF;border-radius:9px;margin:8px 0;overflow:hidden;background:#fff">'+
+         '<div class="p6movehd'+(open?' p6open':'')+'" id="p6hd-'+m.k+'" data-k="'+m.k+'" onclick="p6moveToggle(this.dataset.k)" style="display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer;user-select:none">'+
+           '<button class="vbtn" data-k="'+m.k+'" onclick="playMoveGuide(this.dataset.k,event)" title="Tap to hear how to write this move — in the instructor’s voice"><span class="vico">▶</span><span class="veq"><i></i><i></i><i></i><i></i></span><span class="vlbl">guide</span><span class="vprog"><b></b></span></button>'+
            '<span id="p6car-'+m.k+'" style="color:#B9831D;font-size:12px;width:12px;flex:none">'+(open?'▾':'▸')+'</span>'+
            '<span style="font-size:14px;font-weight:800;color:#13243B">'+m.title+'</span>'+
            '<span style="font-weight:700;color:#B9831D;font-size:12px;white-space:nowrap">· Criterion '+m.c+' · '+m.pts+' pts</span>'+
            '<span id="p6hb-'+m.k+'" style="margin-left:auto;flex:none;font-size:11.5px;font-weight:700;color:'+(ok?'#2E7D4F':'#8a93a0')+'">'+(ok?'✓ ':'')+n+' words</span>'+
          '</div>'+
-         '<div class="p6movebody" id="p6body-'+m.k+'" style="display:'+(open?'block':'none')+';padding:0 2px 8px">'+
-           '<div style="margin:2px 0 2px"><button class="p6listen" data-k="'+m.k+'" onclick="playMoveGuide(this.dataset.k,event)" style="background:#fff;border:1.5px solid #E0A12C;color:#B9831D;border-radius:999px;font-weight:800;font-size:11.5px;padding:3px 12px;cursor:pointer">▶ Listen — how to write this move</button></div>'+
-           '<div id="p6teach-'+m.k+'" style="font-size:13px;color:#3a4250;line-height:1.55;margin:6px 0">'+m.teach+'</div>'+
+         '<div class="p6movebody" id="p6body-'+m.k+'" style="display:'+(open?'block':'none')+';padding:4px 13px 12px;border-top:1px solid #efe9da">'+
+           '<div id="p6teach-'+m.k+'" style="font-size:13px;color:#3a4250;line-height:1.55;margin:8px 0 6px">'+m.teach+'</div>'+
            '<div style="font-size:10.5px;color:#8a6d1f;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:8px">How the Assessor scores this section (0 → 20)</div>'+'<div id="p6scale-'+m.k+'">'+scale+'</div>'+
            '<details style="margin:8px 0"><summary style="cursor:pointer;font-weight:700;color:#5B44A6;font-size:12.5px">▸ See a worked example (~250 words = half a page) — and exactly how it scores</summary>'+
              '<div style="font-size:12.5px;color:#3a4250;line-height:1.55;background:#F4F1FA;border:1px solid #d9d0ec;border-radius:7px;padding:10px 12px;margin-top:5px;white-space:pre-wrap">'+esc(P6_EX[m.k])+'</div>'+
@@ -910,7 +912,7 @@ function renderNarrate(){
 var p6openMove='feat';
 function p6moveToggle(k){var was=p6openMove;p6openMove=(was===k)?null:k;
   P6_MOVES.forEach(function(m){var b=document.getElementById('p6body-'+m.k),c=document.getElementById('p6car-'+m.k),o=(p6openMove===m.k);
-    if(b)b.style.display=o?'block':'none';if(c)c.textContent=o?'▾':'▸';});
+    if(b)b.style.display=o?'block':'none';if(c)c.textContent=o?'▾':'▸';var h=document.getElementById('p6hd-'+m.k);if(h)h.classList.toggle('p6open',o);});
   if(typeof stopMoveAudio==='function'&&p6openMove!==was)stopMoveAudio();
   var hd=p6openMove?document.getElementById('p6hd-'+p6openMove):null;if(hd)hd.scrollIntoView({block:'nearest',behavior:'smooth'});}
 function p6meter(k){var m=P6_MOVES.find(function(x){return x.k===k;});if(!m)return;var n=p6wc((p6o()[k]||'')),ok=n>=P6_MIN;
@@ -1689,16 +1691,16 @@ DATA.sent["move_P6_impact.mp3"]=[[0.0,0.98,"Alright."],[0.73,4.43,"This is your 
 DATA.sent["move_P6_mit.mp3"]=[[0.0,0.91,"Alright."],[0.66,4.56,"This is your second move, the mitigation plan."],[4.31,5.64,"Here is the question."],[5.39,11.09,"For each high-risk feature you named, what did you actually do to shrink it?"],[10.84,12.22,"Not insurance."],[11.97,13.27,"That comes later."],[13.02,15.99,"This is the proactive work."],[15.74,20.75,"So take a risk, and cite its code, like R one, the shared crane."],[20.5,23.03,"Then say the response type."],[22.78,26.85,"Did you avoid it, reduce it, or mitigate its impact?"],[26.6,28.64,"And then the concrete action."],[28.39,31.93,"For R one, that is a locked daily lift schedule."],[31.68,34.12,"Name the owner, and the stage it lives in."],[33.87,39.33,"Pull each line straight from your Response column, and your six-stage control plan."],[39.08,44.21,"Every action should read as owned work, with a home on the schedule."],[43.96,49.48,"Open the writing box, and give me one owned action for every risk."]];
 var moveAudio=null,moveAudioK=null;
 function stopMoveAudio(){if(moveAudio){moveAudio.ontimeupdate=null;moveAudio.pause();}
-  document.querySelectorAll(".p6listen.playing").forEach(function(b){b.classList.remove("playing");});
+  document.querySelectorAll('.vbtn[data-k]').forEach(function(b){b.classList.remove("playing");var p=b.querySelector('.vprog>b');if(p)p.style.width='0';});
   document.querySelectorAll(".kactive,.kglow").forEach(function(el){el.classList.remove("kactive","kglow");});
   if(typeof pgBoxAround==="function")pgBoxAround(null);if(typeof capStop==="function")capStop();moveAudio=null;moveAudioK=null;}
 function playMoveGuide(k,ev){if(ev)ev.stopPropagation();
   var same=(moveAudioK===k);stopMoveAudio();if(typeof stopRowAudio==="function")stopRowAudio();if(typeof stopPageGuide==="function")stopPageGuide();if(same)return;
   var g=(DATA.moveGuide6||{})[k];if(!g||!g.audio)return;
   var a=new Audio(g.audio);moveAudio=a;moveAudioK=k;if(typeof capStart==="function")capStart(g.audio);
-  var btn=document.querySelector(".p6listen[data-k=\""+k+"\"]");if(btn)btn.classList.add("playing");
+  var btn=document.querySelector('.vbtn[data-k="'+k+'"]');var prog=btn?btn.querySelector('.vprog>b'):null;if(btn)btn.classList.add("playing");
   var cues=g.cues||[],lastK=-1;
-  a.ontimeupdate=function(){if(typeof capTick==="function")capTick(a.currentTime);
+  a.ontimeupdate=function(){if(typeof capTick==="function")capTick(a.currentTime);if(prog&&a.duration)prog.style.width=(a.currentTime/a.duration*100).toFixed(1)+"%";
     var idx=-1;for(var i=0;i<cues.length;i++){if(a.currentTime>=cues[i].t)idx=i;else break;}
     if(idx!==lastK){lastK=idx;p6MoveGlow(k,idx>=0?cues[idx].f:null);}};
   var clr=function(){if(moveAudioK===k)stopMoveAudio();};a.onended=clr;a.onerror=clr;a.play().catch(function(){});}
