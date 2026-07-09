@@ -436,6 +436,7 @@
   <button class="btn sm" id="expjson" title="Download your work as a small .json file. Later, use ⬆ Restore to load it back — handy to move your work to another computer or keep a safety copy.">⬇ Backup (.json)</button>
   <button class="btn sm" id="expcsv" title="Download your whole register as a real Excel workbook (.xlsx) — the same layout as the group register file, your five risks only.">⬇ Excel (.xlsx)</button>
   <button class="btn sm" id="import" title="Load a Backup (.json) file you saved earlier — brings that saved work back into the app. Use it to continue on another computer, or to recover your rows if they were lost or cleared. (Different from Undo, which just steps back through this session.)">⬆ Restore (.json)</button>
+  <button class="btn sm" id="p6pdfbtn" style="display:none" title="Download your Part 6 narrative as a PDF — the file you upload to the Narrative Assessor and submit to D2L.">📄 Narrative (.pdf)</button>
   <span class="saved" id="savedmsg"></span>
   <div class="copyr">© 2026 · <b>Project Risk Log</b> · A<sup>2</sup> Learning Studio · Dr. Ali Keyvanfar &amp; Dr. Arezou Shafaghat · Kennesaw State University · For educational use only — all rights reserved, copyright protected.</div>
 </footer>
@@ -713,7 +714,7 @@ function renderRail(){document.getElementById('rail').innerHTML=STAGES.map(s=>{c
   return `<span class="stg ${cur?'on':''} ${u?'unlocked':''}" ${u?`onclick="setPart(${s.n})"`:''} title="${u?'Open Part '+s.n:'Unlocks when you submit Part '+(s.n-1)}"><b>PART ${s.n}</b> ${s.l} · ${u?s.m:'🔒 '+s.m}</span>`;}).join('');
   const chg=document.getElementById('chgid');if(chg)chg.style.display=(state.part||1)===1?'':'none';}   // switching slots is a Part-1 affair — once work carries into Parts 2+, the identity stays put
 function setPart(n){if(!partUnlocked(n))return;stopRowAudio();stopPageGuide();state.part=n;state.analyzed=false;persist();renderRail();selectSlot();refreshFinishLabel();refreshPageBar();window.scrollTo(0,0);}
-function refreshFinishLabel(){const f=document.getElementById('finish');if(f)f.innerHTML='✓ Finish Part '+(state.part||1);}
+function refreshFinishLabel(){const f=document.getElementById('finish');if(f)f.innerHTML='✓ Finish Part '+(state.part||1);var pb=document.getElementById('p6pdfbtn');if(pb)pb.style.display=((state.part||1)===6?'':'none');}
 
 /* ================= PART 6 · NARRATE (2026-07-08) — the narrative lives IN the register app ================= */
 const P6_GPT='https://chatgpt.com/g/g-6a4dad32d908819187587b8c38626c41-narrative-assessor';
@@ -862,7 +863,7 @@ function renderNarrate(){
        '<button class="btn" style="background:#E0A12C;color:#13243B;font-weight:800" onclick="downloadPart6PDF(this)">📄 Download my narrative PDF</button>'+
        '<button class="btn finish" id="p6finish" onclick="finishPart6()">✓ Finish Part 6</button></div>'+
      '<div id="p6done" style="display:none;background:#EAF4F0;border:1px solid #bfe0d4;border-radius:8px;padding:10px 13px;color:#1f4a3e;font-size:13px;margin-top:8px"><b>Part 6 finished ✓</b> — your backup and narrative PDF downloaded. Now get your score below.</div></div>';
-  h+='<div style="background:#F4F1FA;border:1px solid #d9d0ec;border-radius:12px;padding:16px 18px;margin:0 0 14px;color:#2b2440">'+
+  h+='<div id="p6scorecard" style="background:#F4F1FA;border:1px solid #d9d0ec;border-radius:12px;padding:16px 18px;margin:0 0 14px;color:#2b2440">'+
      '<div style="font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:#5B44A6;font-weight:800">① Get your score range <span style="color:#8a7db8;font-weight:600;text-transform:none;letter-spacing:0">— where your work stands now</span></div>'+
      '<div style="font-size:12.5px;color:#4a3d6b;line-height:1.55;margin:5px 0 10px">The Narrative Assessor reads your work and predicts a score range — say, 80–90 — with the reasons behind it; think of it as an honest preview, <b>not your final grade</b>, because your instructor is the one who reads your narrative and Score Sheet and sets the final Part 6 score.</div>'+
      '<ol style="margin:0;padding-left:20px;font-size:13.5px;line-height:1.62;color:#2b2440">'+
@@ -885,6 +886,16 @@ function p6meter(k){var m=P6_MOVES.find(function(x){return x.k===k;});if(!m)retu
   var e=document.getElementById('p6c-'+k);if(e){e.textContent=(ok?'✓ ':'')+n+' words · aim for ~'+P6_TARGET+' (about half a page)';e.style.color=ok?'#2E7D4F':'#5B6675';}}
 function p6meter(k){var m=P6_MOVES.find(function(x){return x.k===k;});if(!m)return;var n=p6wc((p6o()[k]||'')),ok=n>=P6_MIN;
   var e=document.getElementById('p6c-'+k);if(e){e.textContent=(ok?'✓ ':'')+n+' words · aim for ~120 (about half a page)';e.style.color=ok?'#2E7D4F':'#5B6675';}}
+function p6showDone(){
+  var dh=document.getElementById('donehdr');if(dh)dh.textContent='Narrative finished';
+  document.getElementById('donemsg').innerHTML='<b>Nice work — your narrative is done.</b><br>Your <b>narrative PDF</b> and a <b>backup (.json)</b> just downloaded to your computer. Part 6 isn’t recorded automatically — you submit it to D2L yourself, in two steps below.';
+  document.getElementById('nextnote').style.display='none';
+  var gn=document.getElementById('gonext'),cav=document.getElementById('gocaveat'),gc=document.getElementById('goclose');
+  if(gn){gn.style.display='';gn.textContent='Get my score range →';
+    gn.onclick=function(){document.getElementById('doneov').style.display='none';var el=document.getElementById('p6scorecard');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};}
+  if(cav){cav.style.display='';cav.innerHTML='First, get your score range from the <b>Narrative Assessor</b> — it hands you a Score Sheet with a verification code. Then submit <b>both PDFs</b> to the D2L Part 6 dropbox. Your instructor reads them and sets the final grade.';}
+  if(gc){gc.textContent='Close';gc.onclick=function(){document.getElementById('doneov').style.display='none';};}
+  document.getElementById('doneov').style.display='flex';}
 function finishPart6(){const d=p6o();const short=P6_MOVES.filter(function(m){return p6wc(d[m.k])<P6_MIN;});const w=document.getElementById('p6warn');
   if(short.length){w.style.display='block';w.innerHTML='<b>Almost there — a scoreable narrative needs about half a page per move.</b> These are still under ~'+P6_MIN+' words: '+short.map(function(m){return '“'+m.title.replace(/ —.*/,'')+'”';}).join(', ')+'. Look at your register above — which rows haven’t made it into the prose yet?';return;}
   w.style.display='none';
@@ -893,6 +904,7 @@ function finishPart6(){const d=p6o();const short=P6_MOVES.filter(function(m){ret
   try{downloadJSON();}catch(e){}
   setTimeout(function(){try{downloadPart6PDF(null);}catch(e){}},700);
   var ok=document.getElementById('p6done');if(ok)ok.style.display='block';
+  try{p6showDone();}catch(e){}
   renderRail();}
 function downloadPart6PDF(btn){if(!(window.jspdf&&window.jspdf.jsPDF)){alert('PDF engine not loaded — refresh the page and try again.');return;}
   persist();
@@ -2116,6 +2128,7 @@ function downloadXLSX(){try{const u8=buildXLSX();
 document.getElementById('expjson').onclick=downloadJSON;
 document.getElementById('expcsv').onclick=downloadXLSX;
 document.getElementById('import').onclick=()=>document.getElementById('fileimp').click();
+document.getElementById('p6pdfbtn').onclick=function(){downloadPart6PDF(this);};
 document.getElementById('fileimp').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
   rd.onload=()=>{try{const s=JSON.parse(rd.result);if(s&&s.entries){state=s;delete state._actionReport;delete state._actionReports;migrateEntries();
     if(!state.slots)state.slots={};const k=slotKeyOf(state.grp,state.tm);   // an old backup (pre-slots) adopts its globals as the slot record; restoring a backup also re-claims a PIN-locked ID
